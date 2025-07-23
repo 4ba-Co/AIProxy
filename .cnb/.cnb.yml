@@ -1,0 +1,19 @@
+main:
+  web_trigger_proxy_build:
+    - services:
+        docker
+      imports: https://cnb.cool/4baco/secrets/-/blob/main/docker-envs.yml
+      stages:
+        - name: set docker tag
+          script: echo -n "${DOCKER_REGISTRY}/${DOCKER_GROUP}$/aiproxy:$var1"
+          exports:
+            info: IMAGE_TAG
+
+        - name: login to docker registry
+          script: docker login -u ${DOCKER_USER} -p "${DOCKER_PWD}" ${DOCKER_REGISTRY}
+
+        - name: build
+          script: docker build -t $IMAGE_TAG -f ./AIProxy.Proxy/Dockerfile ./
+
+        - name: push
+          script: docker push $IMAGE_TAG
