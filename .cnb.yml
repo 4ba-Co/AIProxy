@@ -5,7 +5,7 @@ main:
       imports: https://cnb.cool/4baco/secrets/-/blob/main/docker-envs.yml
       stages:
         - name: set docker tag
-          script: echo -n "${DOCKER_REGISTRY}/${DOCKER_GROUP}$/aiproxy:$var1"
+          script: echo -n "${DOCKER_REGISTRY}/${DOCKER_GROUP}/aiproxy:$var1"
           exports:
             info: IMAGE_TAG
 
