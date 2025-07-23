@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../buildMultiTargeting/AIProxy.Proxy.props" />
-</Project>
