@@ -1,7 +1,7 @@
 main:
   web_trigger_proxy_build:
     - services:
-        docker
+        - docker
       imports: https://cnb.cool/4baco/secrets/-/blob/main/docker-envs.yml
       stages:
         - name: set docker tag
