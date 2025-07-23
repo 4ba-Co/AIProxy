@@ -1,0 +1,11 @@
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/bin/Debug/net9.0/AIProxy.Common.deps.json
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/bin/Debug/net9.0/AIProxy.Common.dll
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/bin/Debug/net9.0/AIProxy.Common.pdb
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/obj/Debug/net9.0/AIProxy.Common.GeneratedMSBuildEditorConfig.editorconfig
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/obj/Debug/net9.0/AIProxy.Common.AssemblyInfoInputs.cache
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/obj/Debug/net9.0/AIProxy.Common.AssemblyInfo.cs
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/obj/Debug/net9.0/AIProxy.Common.csproj.CoreCompileInputs.cache
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/obj/Debug/net9.0/AIProxy.Common.dll
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/obj/Debug/net9.0/refint/AIProxy.Common.dll
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/obj/Debug/net9.0/AIProxy.Common.pdb
+/Users/desmond/RiderProjects/AIProxy/AIProxy.Common/obj/Debug/net9.0/ref/AIProxy.Common.dll

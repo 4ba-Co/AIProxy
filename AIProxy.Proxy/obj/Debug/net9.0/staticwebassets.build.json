@@ -1,0 +1,702 @@
+{
+  "Version": 1,
+  "Hash": "glr/Dja+ZYPKsQQK47l5tfSM+SmECh/OqBzgzeWjHkA=",
+  "Source": "AIProxy.Proxy",
+  "BasePath": "_content/AIProxy.Proxy",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "AIProxy.Proxy/wwwroot",
+      "Source": "AIProxy.Proxy",
+      "ContentRoot": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/",
+      "BasePath": "_content/AIProxy.Proxy",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/a3s2l64wmc-22ck198j3h.gz",
+      "SourceId": "AIProxy.Proxy",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/",
+      "BasePath": "_content/AIProxy.Proxy",
+      "RelativePath": "favicon#[.{fingerprint=22ck198j3h}]?.ico.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/favicon.ico",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "s7gcz68gbu",
+      "Integrity": "GDjZf+yt3nc8G+GDaCtPXmEmeb0DJklOs4s0334515w=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/pqkc1688fq-gzugzglibu.gz",
+      "SourceId": "AIProxy.Proxy",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/",
+      "BasePath": "_content/AIProxy.Proxy",
+      "RelativePath": "index#[.{fingerprint=gzugzglibu}]?.html.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/index.html",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "e7uj67dot3",
+      "Integrity": "Vs56sYib3RT6ZQwMF/b0mTfevTWCc37+IwicUIgjRaQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/index.html"
+    },
+    {
+      "Identity": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/favicon.ico",
+      "SourceId": "AIProxy.Proxy",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/",
+      "BasePath": "_content/AIProxy.Proxy",
+      "RelativePath": "favicon#[.{fingerprint}]?.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "22ck198j3h",
+      "Integrity": "Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/index.html",
+      "SourceId": "AIProxy.Proxy",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/",
+      "BasePath": "_content/AIProxy.Proxy",
+      "RelativePath": "index#[.{fingerprint}]?.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gzugzglibu",
+      "Integrity": "JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/index.html"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "favicon.22ck198j3h.ico",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/a3s2l64wmc-22ck198j3h.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001472754050"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "678"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GDjZf+yt3nc8G+GDaCtPXmEmeb0DJklOs4s0334515w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 04:08:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "22ck198j3h"
+        },
+        {
+          "Name": "label",
+          "Value": "favicon.ico"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.22ck198j3h.ico",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/favicon.ico",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1244"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 04:08:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "22ck198j3h"
+        },
+        {
+          "Name": "label",
+          "Value": "favicon.ico"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.22ck198j3h.ico.gz",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/a3s2l64wmc-22ck198j3h.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "678"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GDjZf+yt3nc8G+GDaCtPXmEmeb0DJklOs4s0334515w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 04:08:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "22ck198j3h"
+        },
+        {
+          "Name": "label",
+          "Value": "favicon.ico.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-GDjZf+yt3nc8G+GDaCtPXmEmeb0DJklOs4s0334515w="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.ico",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/a3s2l64wmc-22ck198j3h.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001472754050"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "678"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GDjZf+yt3nc8G+GDaCtPXmEmeb0DJklOs4s0334515w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 04:08:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.ico",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/favicon.ico",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1244"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 04:08:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ch82/niifFhoT6X3D/oiX+NfMgXPRFB3Nrg3mztwtQU="
+        }
+      ]
+    },
+    {
+      "Route": "favicon.ico.gz",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/a3s2l64wmc-22ck198j3h.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "678"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GDjZf+yt3nc8G+GDaCtPXmEmeb0DJklOs4s0334515w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 04:08:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-GDjZf+yt3nc8G+GDaCtPXmEmeb0DJklOs4s0334515w="
+        }
+      ]
+    },
+    {
+      "Route": "index.gzugzglibu.html",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/pqkc1688fq-gzugzglibu.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000187371182"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5336"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vs56sYib3RT6ZQwMF/b0mTfevTWCc37+IwicUIgjRaQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 05:07:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gzugzglibu"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8="
+        }
+      ]
+    },
+    {
+      "Route": "index.gzugzglibu.html",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21414"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 05:07:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gzugzglibu"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8="
+        }
+      ]
+    },
+    {
+      "Route": "index.gzugzglibu.html.gz",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/pqkc1688fq-gzugzglibu.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5336"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vs56sYib3RT6ZQwMF/b0mTfevTWCc37+IwicUIgjRaQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 05:07:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gzugzglibu"
+        },
+        {
+          "Name": "label",
+          "Value": "index.html.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Vs56sYib3RT6ZQwMF/b0mTfevTWCc37+IwicUIgjRaQ="
+        }
+      ]
+    },
+    {
+      "Route": "index.html",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/pqkc1688fq-gzugzglibu.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000187371182"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5336"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vs56sYib3RT6ZQwMF/b0mTfevTWCc37+IwicUIgjRaQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 05:07:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8="
+        }
+      ]
+    },
+    {
+      "Route": "index.html",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/wwwroot/index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21414"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 05:07:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-JOwoYxKgjDfdVw81XlGTjqw53WBddI0XeW3bKVY/h/8="
+        }
+      ]
+    },
+    {
+      "Route": "index.html.gz",
+      "AssetFile": "/Users/desmond/RiderProjects/AIProxy/AIProxy.Proxy/obj/Debug/net9.0/compressed/pqkc1688fq-gzugzglibu.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5336"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vs56sYib3RT6ZQwMF/b0mTfevTWCc37+IwicUIgjRaQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Jul 2025 05:07:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Vs56sYib3RT6ZQwMF/b0mTfevTWCc37+IwicUIgjRaQ="
+        }
+      ]
+    }
+  ]
+}

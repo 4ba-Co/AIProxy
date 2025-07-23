@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIProxy.Common", "AIProxy.Common\AIProxy.Common.csproj", "{0EDF4903-7521-46A9-AA8F-EB36032F8849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIProxy.Proxy", "AIProxy.Proxy\AIProxy.Proxy.csproj", "{18D13984-8939-40D4-BF07-B03F47834D08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIProxy.CCenter", "AIProxy.CCenter\AIProxy.CCenter.csproj", "{503FE4EA-B44E-4340-BF59-87EDAE8C0027}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EDF4903-7521-46A9-AA8F-EB36032F8849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EDF4903-7521-46A9-AA8F-EB36032F8849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EDF4903-7521-46A9-AA8F-EB36032F8849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EDF4903-7521-46A9-AA8F-EB36032F8849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18D13984-8939-40D4-BF07-B03F47834D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18D13984-8939-40D4-BF07-B03F47834D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18D13984-8939-40D4-BF07-B03F47834D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18D13984-8939-40D4-BF07-B03F47834D08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503FE4EA-B44E-4340-BF59-87EDAE8C0027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503FE4EA-B44E-4340-BF59-87EDAE8C0027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503FE4EA-B44E-4340-BF59-87EDAE8C0027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503FE4EA-B44E-4340-BF59-87EDAE8C0027}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

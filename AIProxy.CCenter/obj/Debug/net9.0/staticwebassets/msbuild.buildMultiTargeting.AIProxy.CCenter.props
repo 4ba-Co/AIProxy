@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/AIProxy.CCenter.props" />
+</Project>
