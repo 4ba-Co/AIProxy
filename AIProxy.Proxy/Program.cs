@@ -49,6 +49,18 @@ var clusters = new[]
                     { Address = "https://gateway.ai.cloudflare.com/v1/f201992af48c42f242036188814036ce/asia-sg-01" }
             }
         }
+    },
+    new ClusterConfig()
+    {
+        ClusterId = "ai-proxy-de-cf",
+        Destinations = new Dictionary<string, DestinationConfig>(StringComparer.OrdinalIgnoreCase)
+        {
+            {
+                "cf-ge",
+                new DestinationConfig()
+                    { Address = "https://gateway.ai.cloudflare.com/v1/f201992af48c42f242036188814036ce/europe-de-01" }
+            }
+        }
     }
 };
 

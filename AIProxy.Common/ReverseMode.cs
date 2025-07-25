@@ -4,5 +4,6 @@ public enum ReverseMode
 {
     HongKong2Singapore,
     SingaporeGateway,
-    AmericaGateway
+    AmericaGateway,
+    GermanyGateway
 }

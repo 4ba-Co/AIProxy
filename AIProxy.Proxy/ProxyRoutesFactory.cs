@@ -15,7 +15,7 @@ public sealed class ProxyRoutesFactory(ReverseMode mode)
             { "RequestHeader", "cf-aig-authorization" },
             { "Set", "Bearer 5IRJDJnxhALFb1q3GY7Vs7WeJkh2rR16nkP-m-lh" }
         }
-    ];   
+    ];
 
     private readonly IReadOnlyList<IReadOnlyDictionary<string, string>> _commonTransformsWithoutToken =
     [
@@ -35,6 +35,10 @@ public sealed class ProxyRoutesFactory(ReverseMode mode)
             ReverseMode.SingaporeGateway =>
             [
                 BuildRouteConfig("ai-proxy-endpoint-sg", "ai-proxy-sg-cf", _commonTransforms, false)
+            ],
+            ReverseMode.GermanyGateway =>
+            [
+                BuildRouteConfig("ai-proxy-endpoint-de", "ai-proxy-de-cf", _commonTransforms, false)
             ],
             ReverseMode.HongKong2Singapore =>
             [
