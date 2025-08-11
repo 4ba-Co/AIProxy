@@ -9,7 +9,7 @@ main:
           exports:
             info: IMAGE_TAG
         - name: build
-          script: docker build -t $IMAGE_TAG -f ./AIProxy.Proxy/Dockerfile ./
+          script: docker buildx build --provenance=false -t $IMAGE_TAG -f ./AIProxy.Proxy/Dockerfile ./
 
         - name: push
           script: docker push $IMAGE_TAG
