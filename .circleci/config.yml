@@ -42,7 +42,7 @@ jobs:
             docker push $DOCKER_IMAGE_NAME:latest
 
 workflows:
-  build-and-push:
+  not-tagged-build-and-push:
     jobs:
       - build-publish:
           filters:
@@ -54,13 +54,13 @@ workflows:
                 - feature/.*
                 - hotfix/.*
                 - release/.*
+  tagged-push:
+    jobs:
       - hold:
           type: approval
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+$/
-          requires:
-            - build-publish
       - tag:
           requires:
             - hold
