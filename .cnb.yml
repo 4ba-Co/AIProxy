@@ -5,13 +5,9 @@ main:
       imports: https://cnb.cool/4baco/secrets/-/blob/main/docker-envs.yml
       stages:
         - name: set docker tag
-          script: echo -n "${DOCKER_REGISTRY}/${DOCKER_GROUP}/aiproxy:$var1"
+          script: echo -n "${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:$var1"
           exports:
             info: IMAGE_TAG
-
-        - name: login to docker registry
-          script: docker login -u ${DOCKER_USER} -p "${DOCKER_PWD}" ${DOCKER_REGISTRY}
-
         - name: build
           script: docker build -t $IMAGE_TAG -f ./AIProxy.Proxy/Dockerfile ./
 
