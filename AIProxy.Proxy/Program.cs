@@ -1,7 +1,9 @@
 using AIProxy.Common;
 using AIProxy.Proxy;
 using AIProxy.Proxy.Middleware;
-using Microsoft.Extensions.Caching.Hybrid;
+using AIProxy.Proxy.Services;
+using StackExchange.Redis.Extensions.Core.Configuration;
+using StackExchange.Redis.Extensions.System.Text.Json;
 using Yarp.ReverseProxy.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -64,28 +66,41 @@ var clusters = new[]
     }
 };
 
+
+// 注册 TokenValidationService
+builder.Services.AddScoped<ITokenValidationService, TokenValidationService>();
+
 if (!Enum.TryParse<ReverseMode>(builder.Configuration["ReverseMode"], out var reverseMode))
 {
     throw new ArgumentException("Invalid ReverseMode specified in configuration.");
 }
 
-var routes = new ProxyRoutesFactory(reverseMode).Produce();
+if (reverseMode != ReverseMode.HongKong2Singapore)
+{
+    builder.Services.AddStackExchangeRedisExtensions<SystemTextJsonSerializer>(new RedisConfiguration
+    {
+        ConnectionString = builder.Configuration.GetConnectionString("Redis"),
+        Database = 7
+    });
+}
+
+var routes = new ProxyRoutesFactory(reverseMode,
+    builder.Configuration["CloudflareAiGateway:AuthToken"] ?? throw new ArgumentException("cfToken is null")).Produce();
 
 builder.Services.AddReverseProxy()
     .LoadFromMemory(routes, clusters);
 
 builder.Services.AddHealthChecks();
 
-// builder.Services.AddAuthorization(options =>
-// {
-//     options.AddPolicy("custom-token", policy => { policy.Requirements.Add(new CustomToken()); });
-// });
-
 var app = builder.Build();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseMiddleware<MetricsMiddleware>();
 app.UseMiddleware<RequestLoggingMiddleware>();
+if (reverseMode != ReverseMode.HongKong2Singapore)
+{
+    app.UseMiddleware<AuthorizationMiddleware>();
+}
 
 app.UseDefaultFiles();
 app.UseStaticFiles();

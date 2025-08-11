@@ -3,9 +3,9 @@ using Yarp.ReverseProxy.Configuration;
 
 namespace AIProxy.Proxy;
 
-public sealed class ProxyRoutesFactory(ReverseMode mode)
+public sealed class ProxyRoutesFactory(ReverseMode mode, string cfToken)
 {
-    private readonly IReadOnlyList<IReadOnlyDictionary<string, string>> _commonTransforms =
+    private IReadOnlyList<IReadOnlyDictionary<string, string>> CommonTransforms =>
     [
         new Dictionary<string, string> { { "RequestHeadersCopy", "true" } },
         new Dictionary<string, string> { { "X-Forwarded", "Off" } },
@@ -13,7 +13,7 @@ public sealed class ProxyRoutesFactory(ReverseMode mode)
         new Dictionary<string, string>
         {
             { "RequestHeader", "cf-aig-authorization" },
-            { "Set", "Bearer 5IRJDJnxhALFb1q3GY7Vs7WeJkh2rR16nkP-m-lh" }
+            { "Set", $"Bearer {cfToken}" }
         }
     ];
 
@@ -30,15 +30,15 @@ public sealed class ProxyRoutesFactory(ReverseMode mode)
         {
             ReverseMode.AmericaGateway =>
             [
-                BuildRouteConfig("ai-proxy-endpoint-na", "ai-proxy-na-cf", _commonTransforms, false)
+                BuildRouteConfig("ai-proxy-endpoint-na", "ai-proxy-na-cf", CommonTransforms, false)
             ],
             ReverseMode.SingaporeGateway =>
             [
-                BuildRouteConfig("ai-proxy-endpoint-sg", "ai-proxy-sg-cf", _commonTransforms, false)
+                BuildRouteConfig("ai-proxy-endpoint-sg", "ai-proxy-sg-cf", CommonTransforms, false)
             ],
             ReverseMode.GermanyGateway =>
             [
-                BuildRouteConfig("ai-proxy-endpoint-de", "ai-proxy-de-cf", _commonTransforms, false)
+                BuildRouteConfig("ai-proxy-endpoint-de", "ai-proxy-de-cf", CommonTransforms, false)
             ],
             ReverseMode.HongKong2Singapore =>
             [
