@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  build:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: true
+
+    steps:
+      - checkout
+      - run:
+          name: "Build Docker image"
+          command: |
+            docker build -t $DOCKER_IMAGE_NAME:$CIRCLE_SHA1 -f ./AIProxy.Proxy/Dockerfile .
+  push:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: true
+    steps:
+      - run:
+          name: "Push Docker image"
+          command: |
+            docker push $DOCKER_IMAGE_NAME:$CIRCLE_SHA1
+
+workflows:
+  build-and-push:
+    jobs:
+      - build
+      # - push
