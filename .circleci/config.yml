@@ -51,9 +51,9 @@ workflows:
                 - main
                 - ci
                 - develop
-                - feature/.*
-                - hotfix/.*
-                - release/.*
+                - /feature\/.*/
+                - /hotfix\/.*/
+                - /release\/.*/
   tagged-push:
     jobs:
       - hold:
