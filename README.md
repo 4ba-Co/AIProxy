@@ -1,5 +1,7 @@
 # KestrelAIProxy
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/9a4zSW4Kt4bK39F5t1m5WR/XiupSmJYh6VGA6D7gtZdJp/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/9a4zSW4Kt4bK39F5t1m5WR/XiupSmJYh6VGA6D7gtZdJp/tree/main)
+
 English | [中文](README_CN.md)
 
 A high-performance AI service proxy gateway built with .NET 9 and YARP (Yet Another Reverse Proxy). KestrelAIProxy provides a unified API gateway for multiple AI service providers, enabling seamless routing and management of AI API requests.
