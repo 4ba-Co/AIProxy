@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Proxy Service - 专业AI服务代理平台</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cg%20filter%3D%22url%28%23filter0_i_18_4808%29%22%3E%0A%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M2%2016C2%2023.72%208.28%2030%2016%2030C23.72%2030%2030%2023.72%2030%2016C30%208.28%2023.72%202%2016%202C8.28%202%202%208.28%202%2016ZM4.25845%2015C4.14149%2015%204.04934%2014.9%204.06109%2014.7836C4.23161%2013.0951%204.7532%2011.5091%205.55162%2010.1C5.58679%2010.0379%205.65284%2010%205.72419%2010H8.86354C9.00529%2010%209.10216%2010.1434%209.05158%2010.2758C8.50219%2011.7142%208.15879%2013.2395%208.04342%2014.8124C8.03569%2014.9178%207.94839%2015%207.84271%2015H4.25845ZM10.2499%2015C10.1339%2015%2010.0421%2014.9016%2010.052%2014.786C10.1929%2013.1487%2010.6171%2011.5718%2011.2919%2010.1146C11.3244%2010.0444%2011.3949%2010%2011.4721%2010H14.8C14.9105%2010%2015%2010.0895%2015%2010.2V14.8C15%2014.9105%2014.9105%2015%2014.8%2015H10.2499ZM15%2017.2C15%2017.0895%2014.9105%2017%2014.8%2017H10.2499C10.1339%2017%2010.0421%2017.0984%2010.052%2017.214C10.1929%2018.8513%2010.6171%2020.4282%2011.2919%2021.8854C11.3244%2021.9556%2011.3949%2022%2011.4721%2022H14.8C14.9105%2022%2015%2021.9105%2015%2021.8V17.2ZM15%2024.2C15%2024.0895%2014.9105%2024%2014.8%2024H12.8891C12.7275%2024%2012.6333%2024.1813%2012.7293%2024.3113C13.2984%2025.0824%2013.9495%2025.7989%2014.6754%2026.4483C14.8021%2026.5617%2015%2026.4703%2015%2026.3002V24.2ZM19.5553%2027.0732C19.4122%2027.2223%2019.5528%2027.4657%2019.7491%2027.4011C21.6233%2026.7838%2023.2945%2025.7167%2024.6344%2024.3278C24.7545%2024.2034%2024.6645%2024%2024.4915%2024H21.9802C21.9087%2024%2021.8428%2024.0382%2021.8066%2024.0998C21.1784%2025.1696%2020.4241%2026.1678%2019.5553%2027.0732ZM22.9483%2021.7241C22.8977%2021.8565%2022.9945%2022%2023.1363%2022L26.2459%2022.0004C26.3351%2022.0004%2026.4177%2021.953%2026.4615%2021.8753C27.2521%2020.4723%2027.7694%2018.8951%2027.9389%2017.2164C27.9507%2017.1%2027.8585%2017%2027.7416%2017H24.1573C24.0516%2017%2023.9643%2017.0822%2023.9566%2017.1876C23.8412%2018.7606%2023.4978%2020.2861%2022.9483%2021.7241ZM21.7501%2017C21.8661%2017%2021.9579%2017.0984%2021.948%2017.214C21.8071%2018.8513%2021.3829%2020.4282%2020.7081%2021.8854C20.6756%2021.9556%2020.6052%2022%2020.5279%2022H17.2C17.0895%2022%2017%2021.9105%2017%2021.8V17.2C17%2017.0895%2017.0895%2017%2017.2%2017H21.7501ZM23.9566%2014.8124C23.9643%2014.9178%2024.0516%2015%2024.1573%2015H27.7416C27.8585%2015%2027.9507%2014.9%2027.9389%2014.7836C27.7694%2013.1049%2027.2521%2011.5277%2026.4615%2010.1247C26.4177%2010.047%2026.3351%209.99961%2026.2459%209.99962L23.1364%2010C22.9947%2010%2022.8978%2010.1434%2022.9484%2010.2758C23.4978%2011.7142%2023.8412%2013.2395%2023.9566%2014.8124ZM20.5279%2010C20.6051%2010%2020.6756%2010.0444%2020.708%2010.1146C21.3829%2011.5718%2021.8071%2013.1487%2021.948%2014.786C21.9579%2014.9016%2021.8661%2015%2021.7501%2015H17.2C17.0895%2015%2017%2014.9105%2017%2014.8V10.2C17%2010.0895%2017.0895%2010%2017.2%2010H20.5279ZM21.8074%207.90017C21.8435%207.96181%2021.9095%208%2021.981%208H24.4915C24.6645%208%2024.7545%207.79661%2024.6344%207.67215C23.2959%206.28483%2021.6269%205.21847%2019.7552%204.6009C19.5591%204.53619%2019.4183%204.77932%2019.5611%204.92851C20.4278%205.83408%2021.1804%206.83153%2021.8074%207.90017ZM17.3246%205.55173C17.1979%205.43836%2017%205.52978%2017%205.69982V7.8C17%207.91046%2017.0895%208%2017.2%208H19.1109C19.2725%208%2019.3667%207.81872%2019.2707%207.6887C18.7015%206.91763%2018.0505%206.20115%2017.3246%205.55173ZM15%205.69979C15%205.52976%2014.8021%205.43833%2014.6754%205.5517C13.9495%206.20113%2013.2985%206.91762%2012.7293%207.6887C12.6333%207.81872%2012.7275%208%2012.8891%208H14.8C14.9105%208%2015%207.91046%2015%207.8V5.69979ZM17.2%2024C17.0895%2024%2017%2024.0895%2017%2024.2V26.3003C17%2026.4703%2017.1979%2026.5617%2017.3246%2026.4483C18.0505%2025.7989%2018.7016%2025.0824%2019.2708%2024.3113C19.3667%2024.1813%2019.2725%2024%2019.1109%2024H17.2ZM5.55162%2021.9C5.58679%2021.9621%205.65284%2022%205.72419%2022H8.86636C9.00817%2022%209.10505%2021.8564%209.05434%2021.724C8.50357%2020.2853%208.15927%2018.7599%208.04357%2017.1876C8.03581%2017.0822%207.94851%2017%207.84285%2017H4.25845C4.14149%2017%204.04934%2017.1%204.06109%2017.2164C4.23161%2018.9049%204.75321%2020.4909%205.55162%2021.9ZM12.2588%2027.4037C12.455%2027.4682%2012.5955%2027.2249%2012.4525%2027.0759C11.5824%2026.1691%2010.827%2025.1701%2010.1977%2024.0997C10.1616%2024.0381%2010.0957%2024%2010.0242%2024H7.50846C7.33553%2024%207.24552%2024.2034%207.3656%2024.3278C8.70741%2025.7186%2010.3814%2026.7868%2012.2588%2027.4037ZM10.019%208C10.0905%208%2010.1564%207.96181%2010.1926%207.90017C10.8196%206.83153%2011.5722%205.8341%2012.4388%204.92853C12.5816%204.77934%2012.4409%204.53621%2012.2448%204.60092C10.3731%205.2185%208.70406%206.28485%207.36559%207.67215C7.24552%207.79661%207.33553%208%207.50846%208H10.019Z%22%20fill%3D%22url%28%23paint0_linear_18_4808%29%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M16%2030C8.28%2030%202%2023.72%202%2016C2%208.28%208.28%202%2016%202C23.72%202%2030%208.28%2030%2016C30%2023.72%2023.72%2030%2016%2030ZM16%2029.5312C23.0761%2029.5312%2029.6875%2023.0761%2029.6875%2016C29.6875%208.92385%2023.0761%202.43748%2016%202.43748C8.92385%202.43748%202.40625%208.92385%202.40625%2016C2.40625%2023.0761%208.92385%2029.5312%2016%2029.5312Z%22%20fill%3D%22url%28%23paint1_linear_18_4808%29%22%2F%3E%0A%3Cg%20filter%3D%22url%28%23filter1_f_18_4808%29%22%3E%0A%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M16%2029.8282C8.37478%2029.8282%202.17188%2023.6252%202.17188%2016C2.17188%208.37478%208.37478%202.17188%2016%202.17188C23.6252%202.17188%2029.8282%208.37478%2029.8282%2016C29.8282%2023.6252%2023.6252%2029.8282%2016%2029.8282ZM16%2029.2031C23.2919%2029.2031%2029.2031%2023.2919%2029.2031%2016C29.2031%208.70813%2023.2919%202.79689%2016%202.79689C8.70813%202.79689%202.79689%208.70813%202.79689%2016C2.79689%2023.2919%208.70813%2029.2031%2016%2029.2031Z%22%20fill%3D%22url%28%23paint2_radial_18_4808%29%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20filter%3D%22url%28%23filter2_f_18_4808%29%22%3E%0A%3Cpath%20d%3D%22M16.3125%203.8125L16.3125%2028.1875%22%20stroke%3D%22url%28%23paint3_linear_18_4808%29%22%20stroke-width%3D%220.75%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20filter%3D%22url%28%23filter3_f_18_4808%29%22%3E%0A%3Cpath%20d%3D%22M17.125%203.6875C19.125%205%2023.125%209.325%2023.125%2016.125C23.125%2022.925%2018.625%2027.6667%2016.375%2029.1875%22%20stroke%3D%22url%28%23paint4_linear_18_4808%29%22%20stroke-width%3D%220.75%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20filter%3D%22url%28%23filter4_f_18_4808%29%22%3E%0A%3Cpath%20d%3D%22M15.25%203.6875C13.25%205%209.25%209.325%209.25%2016.125C9.25%2022.925%2013.75%2027.6667%2016%2029.1875%22%20stroke%3D%22url%28%23paint5_linear_18_4808%29%22%20stroke-width%3D%220.75%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20filter%3D%22url%28%23filter5_f_18_4808%29%22%3E%0A%3Cpath%20d%3D%22M6.6875%208.625H26%22%20stroke%3D%22url%28%23paint6_linear_18_4808%29%22%20stroke-width%3D%220.75%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20filter%3D%22url%28%23filter6_f_18_4808%29%22%3E%0A%3Cpath%20d%3D%22M6.625%2022.75H26%22%20stroke%3D%22url%28%23paint7_linear_18_4808%29%22%20stroke-opacity%3D%220.75%22%20stroke-width%3D%220.75%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20filter%3D%22url%28%23filter7_f_18_4808%29%22%3E%0A%3Cpath%20d%3D%22M3.6875%2015.6875H29%22%20stroke%3D%22url%28%23paint8_linear_18_4808%29%22%20stroke-opacity%3D%220.75%22%20stroke-width%3D%220.75%22%20stroke-linecap%3D%22round%22%2F%3E%0A%3C%2Fg%3E%0A%3Cdefs%3E%0A%3Cfilter%20id%3D%22filter0_i_18_4808%22%20x%3D%222%22%20y%3D%221.5%22%20width%3D%2228.5%22%20height%3D%2228.5%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%2F%3E%0A%3CfeColorMatrix%20in%3D%22SourceAlpha%22%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%20127%200%22%20result%3D%22hardAlpha%22%2F%3E%0A%3CfeOffset%20dx%3D%220.5%22%20dy%3D%22-0.5%22%2F%3E%0A%3CfeGaussianBlur%20stdDeviation%3D%220.375%22%2F%3E%0A%3CfeComposite%20in2%3D%22hardAlpha%22%20operator%3D%22arithmetic%22%20k2%3D%22-1%22%20k3%3D%221%22%2F%3E%0A%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200.211765%200%200%200%200%200.54902%200%200%200%200%200.901961%200%200%200%201%200%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in2%3D%22shape%22%20result%3D%22effect1_innerShadow_18_4808%22%2F%3E%0A%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22filter1_f_18_4808%22%20x%3D%221.67188%22%20y%3D%221.67188%22%20width%3D%2228.6562%22%20height%3D%2228.6562%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%2F%3E%0A%3CfeGaussianBlur%20stdDeviation%3D%220.25%22%20result%3D%22effect1_foregroundBlur_18_4808%22%2F%3E%0A%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22filter2_f_18_4808%22%20x%3D%2215.1875%22%20y%3D%222.6875%22%20width%3D%222.25%22%20height%3D%2226.625%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%2F%3E%0A%3CfeGaussianBlur%20stdDeviation%3D%220.375%22%20result%3D%22effect1_foregroundBlur_18_4808%22%2F%3E%0A%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22filter3_f_18_4808%22%20x%3D%2215.25%22%20y%3D%222.5625%22%20width%3D%229%22%20height%3D%2227.75%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%2F%3E%0A%3CfeGaussianBlur%20stdDeviation%3D%220.375%22%20result%3D%22effect1_foregroundBlur_18_4808%22%2F%3E%0A%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22filter4_f_18_4808%22%20x%3D%228.125%22%20y%3D%222.5625%22%20width%3D%229%22%20height%3D%2227.75%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%2F%3E%0A%3CfeGaussianBlur%20stdDeviation%3D%220.375%22%20result%3D%22effect1_foregroundBlur_18_4808%22%2F%3E%0A%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22filter5_f_18_4808%22%20x%3D%225.5625%22%20y%3D%227.5%22%20width%3D%2221.5625%22%20height%3D%222.25%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%2F%3E%0A%3CfeGaussianBlur%20stdDeviation%3D%220.375%22%20result%3D%22effect1_foregroundBlur_18_4808%22%2F%3E%0A%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22filter6_f_18_4808%22%20x%3D%225.5%22%20y%3D%2221.625%22%20width%3D%2221.625%22%20height%3D%222.25%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%2F%3E%0A%3CfeGaussianBlur%20stdDeviation%3D%220.375%22%20result%3D%22effect1_foregroundBlur_18_4808%22%2F%3E%0A%3C%2Ffilter%3E%0A%3Cfilter%20id%3D%22filter7_f_18_4808%22%20x%3D%222.5625%22%20y%3D%2214.5625%22%20width%3D%2227.5625%22%20height%3D%222.25%22%20filterUnits%3D%22userSpaceOnUse%22%20color-interpolation-filters%3D%22sRGB%22%3E%0A%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%2F%3E%0A%3CfeBlend%20mode%3D%22normal%22%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%2F%3E%0A%3CfeGaussianBlur%20stdDeviation%3D%220.375%22%20result%3D%22effect1_foregroundBlur_18_4808%22%2F%3E%0A%3C%2Ffilter%3E%0A%3ClinearGradient%20id%3D%22paint0_linear_18_4808%22%20x1%3D%2225.5%22%20y1%3D%223.68748%22%20x2%3D%229.6875%22%20y2%3D%2230%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%0A%3Cstop%20stop-color%3D%22%235CCFFF%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2344B3FF%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22paint1_linear_18_4808%22%20x1%3D%2225.0625%22%20y1%3D%224.43748%22%20x2%3D%225.375%22%20y2%3D%2232.625%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%0A%3Cstop%20stop-color%3D%22%23B5F5F5%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%233A6DD3%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3CradialGradient%20id%3D%22paint2_radial_18_4808%22%20cx%3D%220%22%20cy%3D%220%22%20r%3D%221%22%20gradientUnits%3D%22userSpaceOnUse%22%20gradientTransform%3D%22translate%2826.1875%208.4375%29%20rotate%28128.166%29%20scale%2827.207%2027.207%29%22%3E%0A%3Cstop%20offset%3D%220.489105%22%20stop-color%3D%22%237FFFFF%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%233C68D0%22%2F%3E%0A%3C%2FradialGradient%3E%0A%3ClinearGradient%20id%3D%22paint3_linear_18_4808%22%20x1%3D%2216.8125%22%20y1%3D%223.8125%22%20x2%3D%2216.8125%22%20y2%3D%2235.125%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%0A%3Cstop%20stop-color%3D%22%2376F6FF%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2376F6FF%22%20stop-opacity%3D%220%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22paint4_linear_18_4808%22%20x1%3D%2219.75%22%20y1%3D%223.6875%22%20x2%3D%2219.75%22%20y2%3D%2236.4452%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%0A%3Cstop%20stop-color%3D%22%2376F6FF%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2376F6FF%22%20stop-opacity%3D%220%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22paint5_linear_18_4808%22%20x1%3D%22-1.1875%22%20y1%3D%229.0625%22%20x2%3D%2226%22%20y2%3D%2230.625%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%0A%3Cstop%20stop-color%3D%22%2376F6FF%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2376F6FF%22%20stop-opacity%3D%220%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22paint6_linear_18_4808%22%20x1%3D%221.4375%22%20y1%3D%229.90961%22%20x2%3D%2230.3125%22%20y2%3D%229.90898%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%0A%3Cstop%20stop-color%3D%22%2376F6FF%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2376F6FF%22%20stop-opacity%3D%220%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22paint7_linear_18_4808%22%20x1%3D%2219.25%22%20y1%3D%2213.75%22%20x2%3D%2219.2503%22%20y2%3D%2228.375%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%0A%3Cstop%20stop-color%3D%22%2376F6FF%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2376F6FF%22%20stop-opacity%3D%220%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22paint8_linear_18_4808%22%20x1%3D%22-3.19357%22%20y1%3D%2216.9721%22%20x2%3D%2234.6523%22%20y2%3D%2216.971%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%0A%3Cstop%20stop-color%3D%22%2376F6FF%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2376F6FF%22%20stop-opacity%3D%220%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3C%2Fdefs%3E%0A%3C%2Fsvg%3E%0A" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 0 40px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1a365d;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            padding: 40px 50px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #1a365d;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            background: #3182ce;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .section-description {
+            font-size: 1rem;
+            color: #64748b;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .access-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .access-point {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .access-point:hover {
+            border-color: #3182ce;
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.1);
+        }
+
+        .access-point h3 {
+            color: #1a365d;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .access-point .url {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            font-size: 1rem;
+            color: #2d3748;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-weight: 500;
+        }
+
+        .architecture {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .architecture h3 {
+            color: #1a365d;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .flow-step {
+            background: white;
+            border: 2px solid #3182ce;
+            border-radius: 8px;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: 500;
+            color: #1a365d;
+            min-width: 120px;
+        }
+
+        .flow-arrow {
+            color: #3182ce;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .route-details {
+            margin-top: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .route-details h4 {
+            color: #1a365d;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .route-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .route-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #64748b;
+        }
+
+        .route-list li::before {
+            content: '→';
+            color: #3182ce;
+            font-weight: bold;
+        }
+
+        .api-format {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .api-format h4 {
+            color: #1a365d;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .providers-container {
+            margin: 25px 0;
+        }
+
+        .provider-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .provider-card:hover {
+            border-color: #3182ce;
+            box-shadow: 0 2px 8px rgba(49, 130, 206, 0.1);
+        }
+
+        .provider-card.special {
+            border-color: #d97706;
+            background: #fef3c7;
+        }
+
+        .provider-header {
+            padding: 15px 20px;
+            background: #f8fafc;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #1a365d;
+            transition: background-color 0.2s ease;
+        }
+
+        .provider-header:hover {
+            background: #e2e8f0;
+        }
+
+        .provider-card.special .provider-header {
+            background: #fef3c7;
+        }
+
+        .provider-card.special .provider-header:hover {
+            background: #fde68a;
+        }
+
+        .provider-name {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            font-size: 0.95rem;
+        }
+
+        .toggle-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+        }
+
+        .provider-card.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .provider-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+
+        .provider-card.expanded .provider-details {
+            max-height: 200px;
+        }
+
+        .mapping-info {
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .proxy-path, .target-url {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .proxy-path code, .target-url code {
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: #1a365d;
+            border: 1px solid #e2e8f0;
+        }
+
+        .provider-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px 10px;
+            text-align: center;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            color: #2d3748;
+        }
+
+        .provider-item:hover {
+            background: #3182ce;
+            color: white;
+            border-color: #3182ce;
+        }
+
+        .provider-item.special {
+            background: #fef3c7;
+            border-color: #d97706;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        .provider-item.special:hover {
+            background: #d97706;
+            color: white;
+            border-color: #b45309;
+        }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .alert {
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+
+        .alert h4 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .alert p, .alert ul {
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-left-color: #d97706;
+        }
+
+        .alert-warning h4 {
+            color: #92400e;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            border-left-color: #3b82f6;
+        }
+
+        .alert-info h4 {
+            color: #1e40af;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .highlight-text {
+            color: #3182ce;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .contact-info h4 {
+            color: #0c4a6e;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contact-info .email {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            font-size: 1rem;
+            color: #0369a1;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            display: inline-block;
+            border: 1px solid #0ea5e9;
+            font-weight: 500;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: white;
+            margin-top: 40px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .footer-content {
+            padding: 40px 50px 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .footer-section p, .footer-section li {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            padding: 4px 0;
+        }
+
+        .footer-section ul li::before {
+            content: '•';
+            color: #3b82f6;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #475569;
+            padding: 20px 50px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            color: #93c5fd;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #24292e;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .github-link:hover {
+            background: #2f363d;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(36, 41, 46, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 30px 25px;
+            }
+
+            .access-points {
+                grid-template-columns: 1fr;
+            }
+
+            .providers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                padding: 30px 25px 20px;
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-bottom {
+                padding: 15px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>AI Proxy Service</h1>
+        <p class="subtitle">专业AI服务代理平台 - 稳定可靠的全球代理服务</p>
+        <div style="margin-top: 20px;">
+            <a href="https://github.com/4ba-Co/AIProxy" target="_blank" class="github-link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                GitHub 开源项目
+            </a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="section">
+            <h2><span class="icon">🌐</span>服务入口</h2>
+            <p class="section-description">基于地理位置智能分流，为不同地区用户提供最优访问路径。</p>
+            <div class="access-points">
+                <div class="access-point">
+                    <h3>🇨🇳 中国大陆专线</h3>
+                    <div class="url">ai-proxy.4ba-cn.co</div>
+                </div>
+                <div class="access-point">
+                    <h3>🌍 国际专线</h3>
+                    <div class="url">ai-proxy.4ba.ai</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><span class="icon">🏗️</span>代理架构</h2>
+            <p class="section-description">我们的代理架构经过精心设计，确保中国大陆用户获得最佳访问体验。</p>
+            
+            <div class="architecture">
+                <h3>智能流量分流架构</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">中国大陆用户</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">香港节点</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">智能分流</div>
+                </div>
+                
+                <div class="route-details">
+                    <h4>分流规则：</h4>
+                    <ul class="route-list">
+                        <li><strong>OpenRouter</strong> 和 <strong>Vercel</strong> 请求：直接转发到对应endpoint</li>
+                        <li><strong>其他Provider</strong>：转发到新加坡节点，然后转发到对应endpoint</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><span class="icon">🔗</span>API接口规范</h2>
+            <p class="section-description">遵循RESTful API设计标准，提供统一的接口格式，支持主流AI服务提供商。</p>
+
+            <div class="api-format">
+                <h4>标准URL格式</h4>
+                <div class="code-block">https://ai-proxy.4ba.ai/{provider}/v1/...</div>
+            </div>
+
+            <h4 style="margin: 25px 0 15px; color: #1a365d; font-size: 1.2rem; font-weight: 600;">支持的AI服务提供商</h4>
+            <p style="color: #64748b; margin-bottom: 20px; font-size: 0.95rem;">点击下方提供商查看详细的API路径映射关系：</p>
+            
+            <div class="providers-container">
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('aws-bedrock')">
+                        <span class="provider-name">aws-bedrock</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="aws-bedrock-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/aws-bedrock/{runtime}/{region}/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://{runtime}.{region}.amazonaws.com/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('anthropic')">
+                        <span class="provider-name">anthropic</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="anthropic-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/anthropic/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.anthropic.com/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card special">
+                    <div class="provider-header" onclick="toggleProvider('azure-openai')">
+                        <span class="provider-name">azure-openai</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="azure-openai-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/azure-openai/{resource_name}/{deployment_name}/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://{resource_name}.openai.azure.com/openai/deployments/{deployment_name}/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('cartesia')">
+                        <span class="provider-name">cartesia</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="cartesia-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/cartesia/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.cartesia.ai/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('cerebras')">
+                        <span class="provider-name">cerebras</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="cerebras-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/cerebras/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.cerebras.ai/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('cohere')">
+                        <span class="provider-name">cohere</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="cohere-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/cohere/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.cohere.ai/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('deepseek')">
+                        <span class="provider-name">deepseek</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="deepseek-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/deepseek/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.deepseek.com/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('elevenlabs')">
+                        <span class="provider-name">elevenlabs</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="elevenlabs-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/elevenlabs/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.elevenlabs.io/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('google-ai-studio')">
+                        <span class="provider-name">google-ai-studio</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="google-ai-studio-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/google-ai-studio/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://generativelanguage.googleapis.com/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('google-vertex-ai')">
+                        <span class="provider-name">google-vertex-ai</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="google-vertex-ai-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/google-vertex-ai/projects/{project_id}/locations/{location}/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://{location}-aiplatform.googleapis.com/v1/projects/{project_id}/locations/{location}/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('grok')">
+                        <span class="provider-name">grok</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="grok-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/grok/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.x.ai/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('groq')">
+                        <span class="provider-name">groq</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="groq-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/groq/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.groq.com/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('huggingface')">
+                        <span class="provider-name">huggingface</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="huggingface-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/huggingface/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api-inference.huggingface.co/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('mistral')">
+                        <span class="provider-name">mistral</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="mistral-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/mistral/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.mistral.ai/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('openai')">
+                        <span class="provider-name">openai</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="openai-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/openai/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.openai.com/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('openrouter')">
+                        <span class="provider-name">openrouter</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="openrouter-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/openrouter/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://openrouter.ai/api/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('perplexity-ai')">
+                        <span class="provider-name">perplexity-ai</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="perplexity-ai-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/perplexity-ai/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.perplexity.ai/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('vercel')">
+                        <span class="provider-name">vercel</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="vercel-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/vercel/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://ai-gateway.vercel.sh/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('replicate')">
+                        <span class="provider-name">replicate</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="replicate-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/replicate/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.replicate.com/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <h4>⚠️ Azure OpenAI 特别说明</h4>
+                <p>Azure OpenAI服务使用特殊的URL格式：<br>
+                    <code class="highlight-text">https://ai-proxy.4ba.ai/azure-openai/{resource_name}/{deployment_name}/...</code><br><br>
+                    请将<strong>{resource_name}</strong>替换为您的Azure资源名称，<strong>{deployment_name}</strong>替换为您的部署名称。</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><span class="icon">💻</span>接入示例</h2>
+            <p class="section-description">以下展示如何通过我们的代理服务访问OpenAI的Chat Completions API：</p>
+            <div class="code-block">curl -X POST "https://ai-proxy.4ba.ai/openai/v1/chat/completions" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer YOUR_OPENAI_API_KEY" \
+-d '{
+    "model": "gpt-4",
+    "messages": [
+        {
+            "role": "user",
+            "content": "Hello, world!"
+        }
+    ],
+    "max_tokens": 150,
+    "temperature": 0.7
+}'</div>
+        </section>
+
+        <section class="section">
+            <h2><span class="icon">🔑</span>重要说明</h2>
+
+            <div class="alert alert-warning">
+                <h4>⚠️ API密钥要求</h4>
+                <p>您必须使用各AI服务提供商的<strong>官方一级API Key</strong>，需要自行在相应平台购买额度或注册账号。我们不提供任何二级API Key销售服务。</p>
+            </div>
+
+            <div class="alert alert-info">
+                <h4>🔍 请求追踪与验证</h4>
+                <p>由于我们仅做透明代理转发，您可以在各AI服务提供商的官方控制台或trace页面查看所有通过我们代理的请求记录，确保请求的完整性和透明度。</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><span class="icon">🛡️</span>服务承诺</h2>
+            <div class="alert alert-info">
+                <h4>✅ 我们的承诺</h4>
+                <ul class="feature-list">
+                    <li>提供完全免费的代理服务</li>
+                    <li>仅做代理转发，绝不销售API密钥</li>
+                    <li>零缓存策略，不存储任何请求数据</li>
+                    <li>零日志策略，不跟踪用户请求行为</li>
+                    <li>保障数据传输的完整性和安全性</li>
+                    <li>确保与原始API的100%兼容性</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><span class="icon">📞</span>技术支持</h2>
+            <p class="section-description">如果您在使用过程中遇到任何问题，请随时联系我们的技术支持团队。</p>
+            <div class="contact-info">
+                <h4>📧 技术支持邮箱</h4>
+                <div class="email">support@4ba.ai</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><span class="icon">🔧</span>服务维护</h2>
+            <div class="alert alert-warning">
+                <h4>📅 定期维护计划</h4>
+                <p>为确保服务质量，我们会在每周六UTC时间凌晨3:00进行定期维护，预计停机时间2-5分钟。随着服务优化和基础设施完善，维护频率和时间窗口将逐步减少。</p>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>关于我们</h3>
+            <p>AI Proxy Service 致力于为全球用户提供稳定、安全、免费的AI服务代理，突破地理限制，保障服务连续性。</p>
+        </div>
+        <div class="footer-section">
+            <h3>服务特色</h3>
+            <ul>
+                <li>智能流量分流</li>
+                <li>零缓存零日志</li>
+                <li>完全免费使用</li>
+                <li>24/7 稳定运行</li>
+                <li>支持多种AI服务</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>联系方式</h3>
+            <p><strong>技术支持：</strong><br>support@4ba.ai</p>
+            <p><strong>服务域名：</strong><br>
+                ai-proxy.4ba.ai<br>
+                ai-proxy.4ba-cn.co</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 AI Proxy Service. 专业AI服务代理平台 | 联系我们：<a href="mailto:support@4ba.ai">support@4ba.ai</a></p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">
+            <span style="color: #94a3b8;">🔓 开源项目 | </span>
+            <a href="https://github.com/4ba-Co/AIProxy" target="_blank" style="color: #60a5fa; text-decoration: none;">GitHub 仓库</a>
+            <span style="color: #94a3b8;"> | </span>
+            <a href="https://github.com/4ba-Co/AIProxy/blob/main/LICENSE" target="_blank" style="color: #60a5fa; text-decoration: none;">开源协议</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+    function toggleProvider(providerId) {
+        const providerCard = document.getElementById(`${providerId}-details`).parentElement;
+        const details = document.getElementById(`${providerId}-details`);
+        const toggleIcon = providerCard.querySelector('.toggle-icon');
+        
+        if (providerCard.classList.contains('expanded')) {
+            providerCard.classList.remove('expanded');
+            details.style.maxHeight = '0px';
+            toggleIcon.textContent = '▼';
+        } else {
+            providerCard.classList.add('expanded');
+            details.style.maxHeight = '200px';
+            toggleIcon.textContent = '▲';
+        }
+    }
+</script>
+</body>
+</html>
