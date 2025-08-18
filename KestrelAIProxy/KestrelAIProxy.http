@@ -1,0 +1,6 @@
+@KestrelAIProxy_HostAddress = http://localhost:5501
+
+GET {{KestrelAIProxy_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
