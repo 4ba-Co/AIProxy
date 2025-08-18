@@ -86,7 +86,7 @@ internal class CustomTransformer(ParseResult parseResult) : HttpTransformer
         {
             proxyRequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
         }
-        
+
         proxyRequest.RequestUri = parseResult.TargetUri;
     }
 }

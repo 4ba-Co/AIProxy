@@ -1,6 +1,5 @@
 using KestrelAIProxy.AIGateway.Extensions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace KestrelAIProxy.AIGateway;
@@ -18,6 +17,12 @@ public class PathPatternMiddleware(
         try
         {
             var originalPath = context.Request.Path.Value ?? "/";
+            if (originalPath == "/providers")
+            {
+                // Skip this middleware if the request is for the /providers path
+                await next(context);
+                return;
+            }
             var queryString = context.Request.QueryString.Value ?? "";
             var parsedPath = pathParser.ParsePath(originalPath, queryString);
             context.SetParsedPath(parsedPath);

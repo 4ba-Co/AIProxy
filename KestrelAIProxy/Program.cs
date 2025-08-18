@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+using KestrelAIProxy.AIGateway;
 using KestrelAIProxy.Common;
 using KestrelAIProxy.AIGateway.Extensions;
 using Serilog;
@@ -9,6 +11,9 @@ builder.Services.AddAiGatewayFundamentalComponents();
 builder.Services.AddHealthChecks();
 
 var app = builder.Build();
+
+app.MapGet("/providers", (IProviderRouter providerRouter) => providerRouter.GetAllProviderNames().ToImmutableSortedSet());
+
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseHealthChecks("/health");
