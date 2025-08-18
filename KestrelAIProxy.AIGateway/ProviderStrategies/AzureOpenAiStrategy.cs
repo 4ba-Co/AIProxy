@@ -44,7 +44,7 @@ public sealed class AzureOpenAiStrategy(
         return Task.FromResult(resultBuilder.CreateSuccessResult(
             providerName: ProviderName,
             targetHost: targetHost,
-            pathSegments: ["openai", "deployments", deploymentName, ..remainingSegments],
+            pathSegments: ["openai", "deployments", deploymentName, .. remainingSegments],
             queryString: parsedPath.QueryString,
             additionalMetadata: new Dictionary<string, object>
             {

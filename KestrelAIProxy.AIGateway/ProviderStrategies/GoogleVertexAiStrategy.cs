@@ -43,7 +43,7 @@ public class GoogleVertexAiStrategy(
         return Task.FromResult(resultBuilder.CreateSuccessResult(
             providerName: ProviderName,
             targetHost: targetHost,
-            pathSegments: ["v1", "projects", projectId, "locations", location, ..remainingSegments],
+            pathSegments: ["v1", "projects", projectId, "locations", location, .. remainingSegments],
             queryString: parsedPath.QueryString,
             additionalMetadata: new Dictionary<string, object>
             {

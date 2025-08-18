@@ -19,7 +19,7 @@ public sealed class OpenRouterStrategy(
         return Task.FromResult(resultBuilder.CreateSuccessResult(
             providerName: ProviderName,
             targetHost: "openrouter.ai",
-            pathSegments: ["api", ..segments.Length > 0 ? segments : []],
+            pathSegments: ["api", .. segments.Length > 0 ? segments : []],
             queryString: parsedPath.QueryString,
             additionalHeaders: [],
             additionalMetadata: []));
