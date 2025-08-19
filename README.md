@@ -1,6 +1,7 @@
 # KestrelAIProxy
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/9a4zSW4Kt4bK39F5t1m5WR/XiupSmJYh6VGA6D7gtZdJp/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/9a4zSW4Kt4bK39F5t1m5WR/XiupSmJYh6VGA6D7gtZdJp/tree/main)
+[![Static Badge](https://img.shields.io/badge/All_Providers-AAFF00)](https://ai-proxy.4ba.ai/providers)
 
 English | [中文](README_CN.md)
 
