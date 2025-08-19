@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace KestrelAIProxy.AIGateway.ProviderStrategies;
 
-public sealed class DeepseekStrategy(
+public sealed class DeepSeekStrategy(
     IResultBuilder resultBuilder,
-    ILogger<DeepseekStrategy> logger)
+    ILogger<DeepSeekStrategy> logger)
     : IProviderStrategy
 {
     public string ProviderName => "deepseek";
