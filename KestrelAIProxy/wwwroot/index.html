@@ -1013,6 +1013,25 @@
                 </div>
 
                 <div class="provider-card">
+                    <div class="provider-header" onclick="toggleProvider('together')">
+                        <span class="provider-name">together</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="provider-details" id="together-details">
+                        <div class="mapping-info">
+                            <div class="proxy-path">
+                                <strong>代理路径：</strong>
+                                <code>/together/{**else}</code>
+                            </div>
+                            <div class="target-url">
+                                <strong>目标地址：</strong>
+                                <code>https://api.together.xyz/{**else}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="provider-card">
                     <div class="provider-header" onclick="toggleProvider('jina-deepsearch')">
                         <span class="provider-name">jina-deepsearch</span>
                         <span class="toggle-icon">▼</span>
