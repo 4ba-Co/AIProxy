@@ -1,6 +1,18 @@
 version: 2.1
 
 jobs:
+  build-verify:
+    machine:
+      image: ubuntu-2204:current
+      docker_layer_caching: true
+
+    steps:
+      - checkout
+      - run:
+          name: "Build Docker image (verification only)"
+          command: |
+            docker build -t $DOCKER_IMAGE_NAME:$CIRCLE_SHA1 -f ./KestrelAIProxy/Dockerfile .
+
   build-publish:
     machine:
       image: ubuntu-2204:current
@@ -42,18 +54,24 @@ jobs:
             docker push $DOCKER_IMAGE_NAME:latest
 
 workflows:
-  not-tagged-build-and-push:
+  # Verification build for all branches and PRs except main
+  build-verify-only:
+    jobs:
+      - build-verify:
+          filters:
+            branches:
+              ignore:
+                - main
+
+  # Build and push for main branch
+  main-build-and-push:
     jobs:
       - build-publish:
           filters:
             branches:
-              only:
-                - main
-                - ci
-                - develop
-                - /feature\/.*/
-                - /hotfix\/.*/
-                - /release\/.*/
+              only: main
+
+  # Build and push for tags
   tagged-push:
     jobs:
       - hold:
@@ -69,3 +87,5 @@ workflows:
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+$/
+            branches:
+              ignore: /.*/
