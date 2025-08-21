@@ -3,6 +3,7 @@ using KestrelAIProxy.AIGateway;
 using KestrelAIProxy.Common;
 using KestrelAIProxy.AIGateway.Extensions;
 using Serilog;
+using KestrelAIProxy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,12 +13,30 @@ builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-app.MapGet("/providers", (IProviderRouter providerRouter) => providerRouter.GetAllProviderNames().ToImmutableSortedSet());
-
-app.UseDefaultFiles();
-app.UseStaticFiles();
-app.UseHealthChecks("/health");
 app.UseSerilogRequestLogging();
-app.UseAiGateway();
+
+app.Map("/health", ab => { ab.UseHealthChecks(null); });
+
+// app.UseHealthChecks("/health");
+
+app.UsePipelineRouter();
+
+app.UseStaticPipeline(staticApp =>
+{
+    staticApp.UseDefaultFiles();
+    staticApp.UseStaticFiles();
+});
+
+app.UseApiPipeline(apiApp =>
+{
+    apiApp.UseRouting();
+    apiApp.UseEndpoints(endpoints =>
+    {
+        endpoints.MapGet("/", (IProviderRouter providerRouter) =>
+            providerRouter.GetAllProviderNames().ToImmutableSortedSet());
+    });
+});
+
+app.UseGatewayPipeline(gatewayApp => { gatewayApp.UseAiGateway(); });
 
 app.Run();
