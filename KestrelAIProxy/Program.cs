@@ -16,6 +16,15 @@ var app = builder.Build();
 app.UseSerilogRequestLogging();
 
 app.Map("/health", ab => { ab.UseHealthChecks(null); });
+app.Map("/providers", apiApp =>
+{
+    apiApp.UseRouting();
+    apiApp.UseEndpoints(endpoints =>
+    {
+        endpoints.MapGet("/", (IProviderRouter providerRouter) =>
+            providerRouter.GetAllProviderNames().ToImmutableSortedSet());
+    });
+});
 
 app.UsePipelineRouter();
 
@@ -25,15 +34,6 @@ app.UseStaticPipeline(staticApp =>
     staticApp.UseStaticFiles();
 });
 
-app.UseApiPipeline(apiApp =>
-{
-    apiApp.UseRouting();
-    apiApp.UseEndpoints(endpoints =>
-    {
-        endpoints.MapGet("/", (IProviderRouter providerRouter) =>
-            providerRouter.GetAllProviderNames().ToImmutableSortedSet());
-    });
-});
 
 app.UseGatewayPipeline(gatewayApp => { gatewayApp.UseAiGateway(); });
 

@@ -8,11 +8,6 @@ public sealed class PipelineRouterMiddleware(RequestDelegate next, ILogger<Pipel
 
         switch (GetPipelineType(path))
         {
-            case PipelineType.Api:
-                logger.LogDebug("Route to api pipe: {Path}", path);
-                context.Items["PipelineType"] = PipelineType.Api;
-                break;
-
             case PipelineType.Static:
                 logger.LogDebug("Route to static pipe: {Path}", path);
                 context.Items["PipelineType"] = PipelineType.Static;
@@ -33,14 +28,8 @@ public sealed class PipelineRouterMiddleware(RequestDelegate next, ILogger<Pipel
 
     private static PipelineType GetPipelineType(string? path)
     {
-        if (string.IsNullOrEmpty(path))
-            return PipelineType.Static;
-
-
-        if (path.StartsWith("/providers") || path.StartsWith("/health"))
-            return PipelineType.Api;
-
-        if (path == "/" ||
+        if (string.IsNullOrEmpty(path) ||
+            path == "/" ||
             path.StartsWith("/favicon.ico") ||
             path.Contains('.'))
             return PipelineType.Static;
@@ -52,7 +41,6 @@ public sealed class PipelineRouterMiddleware(RequestDelegate next, ILogger<Pipel
 
 public enum PipelineType
 {
-    Api,
     Static,
     Gateway
 }

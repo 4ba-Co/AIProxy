@@ -7,15 +7,6 @@ public static class PipelineExtensions
         return app.UseMiddleware<PipelineRouterMiddleware>();
     }
 
-    public static IApplicationBuilder UseApiPipeline(this IApplicationBuilder app,
-        Action<IApplicationBuilder> configure)
-    {
-        return app.UseWhen(context =>
-                context.Items.TryGetValue("PipelineType", out var pipelineType) &&
-                pipelineType is PipelineType.Api,
-            configure);
-    }
-
     public static IApplicationBuilder UseStaticPipeline(this IApplicationBuilder app,
         Action<IApplicationBuilder> configure)
     {
