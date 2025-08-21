@@ -631,10 +631,17 @@
                 <div class="route-details">
                     <h4>分流规则：</h4>
                     <ul class="route-list">
-                        <li><strong>OpenRouter</strong> 和 <strong>Vercel</strong> 请求：直接转发到对应endpoint</li>
+                        <li><strong>Vercel</strong> 请求：直接转发到对应endpoint</li>
                         <li><strong>其他Provider</strong>：转发到新加坡节点，然后转发到对应endpoint</li>
                     </ul>
                 </div>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 25px;">
+                <h4>⚠️ 重要路由策略更新</h4>
+                <p><strong>当前只有 Vercel 服务走香港节点直连。</strong></p>
+                <p>由于 OpenRouter 已开始遵守 Provider 的服务策略，代理 OpenAI 先进模型时会出现 403 错误。因此，<strong>OpenRouter 现已改为通过新加坡节点进行转发</strong>，以确保服务的稳定性和可用性。</p>
+                <p>我们正在持续监控各服务提供商的政策变化，并及时调整路由策略以提供最佳服务体验。</p>
             </div>
         </section>
 
