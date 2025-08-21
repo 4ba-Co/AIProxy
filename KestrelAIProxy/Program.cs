@@ -17,8 +17,6 @@ app.UseSerilogRequestLogging();
 
 app.Map("/health", ab => { ab.UseHealthChecks(null); });
 
-// app.UseHealthChecks("/health");
-
 app.UsePipelineRouter();
 
 app.UseStaticPipeline(staticApp =>
