@@ -81,6 +81,15 @@ internal class CustomTransformer(ParseResult parseResult) : HttpTransformer
         proxyRequest.Headers.Remove("X-Forwarded-Host");
         proxyRequest.Headers.Remove("X-Forwarded-Proto");
         proxyRequest.Headers.Remove("X-Real-IP");
+        // remove Cf- headers
+        proxyRequest.Headers.Remove("CF-Connecting-IP");
+        proxyRequest.Headers.Remove("x-real-ip");
+        proxyRequest.Headers.Remove("CF-Connecting-IPv6");
+        proxyRequest.Headers.Remove("CF-Pseudo-IPv4");
+        proxyRequest.Headers.Remove("True-Client-IP");
+        proxyRequest.Headers.Remove("X-Forwarded-Proto");
+        proxyRequest.Headers.Remove("Cf-Ray");
+        proxyRequest.Headers.Remove("CF-IPCountry");
 
         foreach (var header in parseResult.AdditionalHeaders ?? [])
         {
