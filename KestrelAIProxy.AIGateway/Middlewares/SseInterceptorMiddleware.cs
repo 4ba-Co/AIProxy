@@ -1,4 +1,5 @@
 using KestrelAIProxy.AIGateway.Core;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -8,7 +9,6 @@ public sealed class SseInterceptorMiddleware(RequestDelegate next, ILogger<SseIn
 {
     public async Task InvokeAsync(HttpContext context)
     {
-
         var originalBodyStream = context.Response.Body;
 
         await using var customStream = new SseParsingStream(originalBodyStream, ParseLine);
@@ -26,18 +26,13 @@ public sealed class SseInterceptorMiddleware(RequestDelegate next, ILogger<SseIn
 
     private Task ParseLine(string line)
     {
-        if (line.StartsWith("data:"))
+        if (!line.StartsWith("data:")) return Task.CompletedTask;
+        var chunk = line[5..].Trim();
+        if (!string.IsNullOrEmpty(chunk))
         {
-            var jsonData = line[5..].Trim();
-            if (!string.IsNullOrEmpty(jsonData))
-            {
-                logger.LogInformation("Intercepted SSE data: {Data}", jsonData);
+            logger.LogInformation("Intercepted SSE data: {Data}", chunk);
 
-                // 示例：在这里执行真正的异步工作，而不会阻塞转发流
-                // await Task.Delay(10); // 模拟异步数据库写入或 API 调用
-                // await dbContext.SomeLogs.AddAsync(new Log { Data = jsonData });
-                // await dbContext.SaveChangesAsync();
-            }
+            // do something else
         }
 
         return Task.CompletedTask;

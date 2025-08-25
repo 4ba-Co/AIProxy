@@ -1,6 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.AspNetCore.Connections;
 using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics.CodeAnalysis;
 
 namespace KestrelAIProxy.Common;
 

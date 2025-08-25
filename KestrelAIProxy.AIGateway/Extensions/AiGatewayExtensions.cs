@@ -1,10 +1,12 @@
+using System.Diagnostics.CodeAnalysis;
+
 using KestrelAIProxy.AIGateway.Core;
 using KestrelAIProxy.AIGateway.Core.Interfaces;
 using KestrelAIProxy.AIGateway.Middlewares;
 using KestrelAIProxy.AIGateway.ProviderStrategies;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics.CodeAnalysis;
 
 namespace KestrelAIProxy.AIGateway.Extensions;
 
@@ -13,7 +15,9 @@ public static class AiGatewayExtensions
     public static IApplicationBuilder UseAiGateway(this IApplicationBuilder applicationBuilder)
     {
         applicationBuilder.UseMiddleware<PathPatternMiddleware>();
-        applicationBuilder.UseMiddleware<SseInterceptorMiddleware>();
+        // WARN: this would print users private messages in the logs if you enable it
+        // now the project is deployed in a public environment, so it's disabled by default
+        // applicationBuilder.UseMiddleware<SseInterceptorMiddleware>();
         applicationBuilder.UseMiddleware<AiGatewayMiddleware>();
         return applicationBuilder;
     }
@@ -30,10 +34,8 @@ public static class AiGatewayExtensions
         return services;
     }
 
-    [UnconditionalSuppressMessage("Trimming", "IL2072:Validate parameters correctly", Justification = "Provider strategies are explicitly registered")]
     private static void RegisterProviderStrategies(IServiceCollection services)
     {
-        // 编译时注册所有策略类型，避免运行时反射
         RegisterStrategy<AnthropicStrategy>(services);
         RegisterStrategy<AwsBedrockStrategy>(services);
         RegisterStrategy<AzureOpenAiStrategy>(services);
@@ -62,7 +64,10 @@ public static class AiGatewayExtensions
         RegisterStrategy<VercelStrategy>(services);
     }
 
-    private static void RegisterStrategy<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicMethods)] TStrategy>(IServiceCollection services) where TStrategy : class, IProviderStrategy
+    private static void RegisterStrategy<
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors |
+                                    DynamicallyAccessedMemberTypes.PublicMethods)]
+    TStrategy>(IServiceCollection services) where TStrategy : class, IProviderStrategy
     {
         services.AddSingleton<IProviderStrategy, TStrategy>();
     }
