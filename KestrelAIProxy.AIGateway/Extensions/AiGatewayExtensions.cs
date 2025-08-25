@@ -11,6 +11,7 @@ public static class AiGatewayExtensions
     public static IApplicationBuilder UseAiGateway(this IApplicationBuilder applicationBuilder)
     {
         applicationBuilder.UseMiddleware<PathPatternMiddleware>();
+        applicationBuilder.UseMiddleware<SseInterceptorMiddleware>();
         applicationBuilder.UseMiddleware<AiGatewayMiddleware>();
         return applicationBuilder;
     }
