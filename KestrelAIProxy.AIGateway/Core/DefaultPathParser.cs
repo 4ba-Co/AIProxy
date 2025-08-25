@@ -1,9 +1,7 @@
-namespace KestrelAIProxy.AIGateway;
+using KestrelAIProxy.AIGateway.Core.Interfaces;
+using KestrelAIProxy.AIGateway.Core.Models;
 
-public interface IPathParser
-{
-    ParsedPath ParsePath(string path, string queryString);
-}
+namespace KestrelAIProxy.AIGateway.Core;
 
 public sealed class DefaultPathParser : IPathParser
 {

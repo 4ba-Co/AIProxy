@@ -1,3 +1,5 @@
+using KestrelAIProxy.AIGateway.Core.Interfaces;
+using KestrelAIProxy.AIGateway.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -19,7 +21,7 @@ public sealed class FireworksStrategy(
         return Task.FromResult(resultBuilder.CreateSuccessResult(
             providerName: ProviderName,
             targetHost: "api.fireworks.ai",
-            pathSegments: ["inference", ..segments.Length > 0 ? segments : []],
+            pathSegments: ["inference", .. segments.Length > 0 ? segments : []],
             queryString: parsedPath.QueryString,
             additionalHeaders: [],
             additionalMetadata: []));

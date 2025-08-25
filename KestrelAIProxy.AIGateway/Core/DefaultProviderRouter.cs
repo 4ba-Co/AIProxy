@@ -1,14 +1,9 @@
+using KestrelAIProxy.AIGateway.Core.Interfaces;
+using KestrelAIProxy.AIGateway.Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace KestrelAIProxy.AIGateway;
-
-public interface IProviderRouter
-{
-    Task<ParseResult> RouteAsync(HttpContext context, ParsedPath parsedPath);
-    bool HasProvider(string providerName);
-    IEnumerable<string> GetAllProviderNames();
-}
+namespace KestrelAIProxy.AIGateway.Core;
 
 public sealed class DefaultProviderRouter : IProviderRouter
 {

@@ -1,18 +1,7 @@
-namespace KestrelAIProxy.AIGateway;
+using KestrelAIProxy.AIGateway.Core.Interfaces;
+using KestrelAIProxy.AIGateway.Core.Models;
 
-public interface IResultBuilder
-{
-    ParseResult CreateErrorResult(string errorMessage);
-
-    ParseResult CreateSuccessResult(
-        string providerName,
-        string targetHost,
-        string[] pathSegments,
-        string? queryString = null,
-        string scheme = "https",
-        Dictionary<string, string>? additionalHeaders = null,
-        Dictionary<string, object>? additionalMetadata = null);
-}
+namespace KestrelAIProxy.AIGateway.Core;
 
 public sealed class DefaultResultBuilder(IPathBuilder pathBuilder) : IResultBuilder
 {

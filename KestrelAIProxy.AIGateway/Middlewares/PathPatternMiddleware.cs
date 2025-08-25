@@ -1,8 +1,9 @@
+using KestrelAIProxy.AIGateway.Core.Interfaces;
 using KestrelAIProxy.AIGateway.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace KestrelAIProxy.AIGateway;
+namespace KestrelAIProxy.AIGateway.Middlewares;
 
 public class PathPatternMiddleware(
     RequestDelegate next,
