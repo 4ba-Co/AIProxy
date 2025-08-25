@@ -1,23 +1,21 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-preview-noble-chiseled AS base
 USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 5501
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0-preview-noble-aot AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["KestrelAIProxy/KestrelAIProxy.csproj", "KestrelAIProxy/"]
-RUN dotnet restore "KestrelAIProxy/KestrelAIProxy.csproj"
-COPY . .
+COPY --link . .
+RUN dotnet restore "./KestrelAIProxy/KestrelAIProxy.csproj"
 WORKDIR "/src/KestrelAIProxy"
 RUN dotnet build "./KestrelAIProxy.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./KestrelAIProxy.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./KestrelAIProxy.csproj" -c $BUILD_CONFIGURATION -r linux-x64 -o /app/publish /p:UseAppHost=false && rm /app/publish/*.dbg /app/publish/*.Development.json
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "KestrelAIProxy.dll"]
+COPY --link --from=publish /app/publish .
+ENTRYPOINT ["./KestrelAIProxy"]

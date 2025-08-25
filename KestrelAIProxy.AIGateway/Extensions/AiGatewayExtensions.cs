@@ -1,6 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
+
 using KestrelAIProxy.AIGateway.Core;
 using KestrelAIProxy.AIGateway.Core.Interfaces;
 using KestrelAIProxy.AIGateway.Middlewares;
+using KestrelAIProxy.AIGateway.ProviderStrategies;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +15,9 @@ public static class AiGatewayExtensions
     public static IApplicationBuilder UseAiGateway(this IApplicationBuilder applicationBuilder)
     {
         applicationBuilder.UseMiddleware<PathPatternMiddleware>();
+        // WARN: this would print users private messages in the logs if you enable it
+        // now the project is deployed in a public environment, so it's disabled by default
+        // applicationBuilder.UseMiddleware<SseInterceptorMiddleware>();
         applicationBuilder.UseMiddleware<AiGatewayMiddleware>();
         return applicationBuilder;
     }
@@ -29,15 +36,39 @@ public static class AiGatewayExtensions
 
     private static void RegisterProviderStrategies(IServiceCollection services)
     {
-        var strategyType = typeof(IProviderStrategy);
-        var strategies = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(assembly => assembly.GetTypes())
-            .Where(type => type is { IsClass: true, IsAbstract: false } && strategyType.IsAssignableFrom(type))
-            .ToList();
+        RegisterStrategy<AnthropicStrategy>(services);
+        RegisterStrategy<AwsBedrockStrategy>(services);
+        RegisterStrategy<AzureOpenAiStrategy>(services);
+        RegisterStrategy<CartesiaStrategy>(services);
+        RegisterStrategy<CerebrasStrategy>(services);
+        RegisterStrategy<CohereStrategy>(services);
+        RegisterStrategy<DeepbricksStrategy>(services);
+        RegisterStrategy<DeepSeekStrategy>(services);
+        RegisterStrategy<ElevenLabsStrategy>(services);
+        RegisterStrategy<FireworksStrategy>(services);
+        RegisterStrategy<GoogleAiStudioStrategy>(services);
+        RegisterStrategy<GoogleVertexAiStrategy>(services);
+        RegisterStrategy<GrokStrategy>(services);
+        RegisterStrategy<GroqStrategy>(services);
+        RegisterStrategy<HuggingFaceStrategy>(services);
+        RegisterStrategy<HyperbolicStrategy>(services);
+        RegisterStrategy<JinaDeepSearchStrategy>(services);
+        RegisterStrategy<JinaStrategy>(services);
+        RegisterStrategy<MistralStrategy>(services);
+        RegisterStrategy<OpenAiStrategy>(services);
+        RegisterStrategy<OpenRouterStrategy>(services);
+        RegisterStrategy<PerplexityAiStrategy>(services);
+        RegisterStrategy<PoeStrategy>(services);
+        RegisterStrategy<ReplicateStrategy>(services);
+        RegisterStrategy<TogetherStrategy>(services);
+        RegisterStrategy<VercelStrategy>(services);
+    }
 
-        foreach (var strategy in strategies)
-        {
-            services.AddSingleton(strategyType, strategy);
-        }
+    private static void RegisterStrategy<
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors |
+                                    DynamicallyAccessedMemberTypes.PublicMethods)]
+    TStrategy>(IServiceCollection services) where TStrategy : class, IProviderStrategy
+    {
+        services.AddSingleton<IProviderStrategy, TStrategy>();
     }
 }
