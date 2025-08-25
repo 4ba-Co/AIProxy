@@ -4,7 +4,9 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <PublishReadyToRun>true</PublishReadyToRun>
+        <PublishAot>true</PublishAot>
+        <OptimizationPreference>Speed</OptimizationPreference>
+        <IsAotCompatible>true</IsAotCompatible>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 

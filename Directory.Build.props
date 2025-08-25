@@ -1,0 +1,22 @@
+<Project>
+  <PropertyGroup>
+    <!-- AOT 兼容性设置 -->
+    <IsAotCompatible>true</IsAotCompatible>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <EnableAotAnalyzer>true</EnableAotAnalyzer>
+    
+    <!-- 抑制常见的第三方库 AOT 警告 -->
+    <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
+    <SuppressAotAnalysisWarnings>true</SuppressAotAnalysisWarnings>
+  </PropertyGroup>
+
+  <!-- 全局抑制 Serilog 相关的警告 -->
+  <ItemGroup>
+    <SuppressTrimAnalysisWarning Include="IL2026" />
+    <SuppressTrimAnalysisWarning Include="IL2072" />
+    <SuppressTrimAnalysisWarning Include="IL2091" />
+    <SuppressAotAnalysisWarning Include="IL3000" />
+    <SuppressAotAnalysisWarning Include="IL3002" />
+    <SuppressAotAnalysisWarning Include="IL3053" />
+  </ItemGroup>
+</Project>
