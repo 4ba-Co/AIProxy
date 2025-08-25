@@ -5,28 +5,30 @@
 
 English | [中文](README_CN.md)
 
-A high-performance AI service proxy gateway built with .NET 9 and YARP (Yet Another Reverse Proxy). KestrelAIProxy provides a unified API gateway for multiple AI service providers, enabling seamless routing and management of AI API requests.
+A simple and transparent AI service proxy built with .NET 9 and YARP (Yet Another Reverse Proxy). KestrelAIProxy provides transparent proxying for multiple AI service providers with minimal overhead and configuration.
 
 ## 🚀 Features
 
-- **Multi-Provider Support**: Unified gateway for 20+ AI service providers
+- **Multi-Provider Support**: Transparent proxy for 20+ AI service providers
   - OpenAI, Anthropic, Google AI Studio, Google Vertex AI
   - Azure OpenAI, AWS Bedrock, Cohere, Groq
   - Mistral, DeepSeek, Perplexity AI, Hugging Face
   - ElevenLabs, Replicate, Vercel AI, and more...
 
+- **Transparent Proxying**: Direct request forwarding with minimal processing
 - **High Performance**: Built on .NET 9 with Kestrel server and YARP reverse proxy
-- **Path-Based Routing**: Intelligent request routing based on URL patterns
-- **Header Management**: Automatic header transformation and forwarding
+- **Path-Based Routing**: Simple URL pattern-based request routing
+- **Zero Configuration**: Works out of the box with no setup required
 - **Docker Support**: Ready-to-deploy Docker container
-- **Extensible Architecture**: Easy to add new AI providers
-- **Production Ready**: Built-in logging, error handling, and monitoring
+- **Lightweight**: Minimal resource usage and fast startup
 
 ## 🏗️ Architecture
 
 ```
-Client Request → PathPatternMiddleware → ProviderRouter → ProviderStrategy → AiGatewayMiddleware → Target AI Service
+Client Request → Path Router → Target AI Service
 ```
+
+Simple and transparent - requests are routed based on URL patterns and forwarded directly to the target AI service.
 
 ## 📦 Installation
 
@@ -60,24 +62,26 @@ Client Request → PathPatternMiddleware → ProviderRouter → ProviderStrategy
 /{provider}/{api_path}
 ```
 
+Simply replace the original AI service domain with your proxy URL and add the provider name as the first path segment.
+
 ### Examples
 
 **OpenAI API**
 ```bash
-# Chat completions
+# Instead of: https://api.openai.com/v1/chat/completions
+# Use: http://localhost:5501/openai/v1/chat/completions
+
 curl -X POST "http://localhost:5501/openai/v1/chat/completions" \
   -H "Authorization: Bearer your-openai-key" \
   -H "Content-Type: application/json" \
   -d '{"model": "gpt-4", "messages": [{"role": "user", "content": "Hello"}]}'
-
-# Models list
-curl "http://localhost:5501/openai/v1/models" \
-  -H "Authorization: Bearer your-openai-key"
 ```
 
 **Anthropic API**
 ```bash
-# Claude messages
+# Instead of: https://api.anthropic.com/v1/messages
+# Use: http://localhost:5501/anthropic/v1/messages
+
 curl -X POST "http://localhost:5501/anthropic/v1/messages" \
   -H "x-api-key: your-anthropic-key" \
   -H "Content-Type: application/json" \
@@ -86,7 +90,9 @@ curl -X POST "http://localhost:5501/anthropic/v1/messages" \
 
 **Google AI Studio**
 ```bash
-# Generate content
+# Instead of: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
+# Use: http://localhost:5501/google-ai-studio/v1beta/models/gemini-pro:generateContent
+
 curl -X POST "http://localhost:5501/google-ai-studio/v1beta/models/gemini-pro:generateContent" \
   -H "Authorization: Bearer your-google-key" \
   -H "Content-Type: application/json" \
@@ -95,7 +101,7 @@ curl -X POST "http://localhost:5501/google-ai-studio/v1beta/models/gemini-pro:ge
 
 ## 🛠️ Configuration
 
-The proxy automatically routes requests based on the provider name in the URL path. No additional configuration is required for basic usage.
+No configuration required! The proxy automatically routes requests based on the provider name in the URL path.
 
 ## 🔌 Supported Providers
 
@@ -124,8 +130,8 @@ The proxy automatically routes requests based on the provider name in the URL pa
 ```
 KestrelAIProxy/
 ├── KestrelAIProxy/                 # Main web application
-├── KestrelAIProxy.AIGateway/       # Gateway middleware and strategies
-│   ├── ProviderStrategies/         # AI provider implementations
+├── KestrelAIProxy.AIGateway/       # Proxy routing logic
+│   ├── ProviderStrategies/         # AI provider routing rules
 │   └── Extensions/                 # Service extensions
 └── KestrelAIProxy.Common/          # Shared utilities
 ```
@@ -134,7 +140,7 @@ KestrelAIProxy/
 
 1. Create a new strategy class in `ProviderStrategies/`
 2. Implement `IProviderStrategy` interface
-3. Automatically register the strategy in `AiGatewayExtensions.cs`
+3. Define the provider name and target host
 
 Example:
 ```csharp
@@ -157,17 +163,16 @@ public sealed class NewProviderStrategy : IProviderStrategy
 
 ## 📊 Performance
 
-- **Latency**: Minimal overhead (< 5ms typical)
-- **Throughput**: High-performance reverse proxy with connection pooling
-- **Memory**: Efficient memory usage with .NET 9 optimizations
-- **Scalability**: Horizontal scaling support via load balancers
+- **Low Latency**: Minimal proxy overhead
+- **High Throughput**: Efficient request forwarding via YARP
+- **Lightweight**: Small memory footprint
+- **Fast Startup**: Quick application initialization
 
 ## 🔒 Security
 
-- Header sanitization (removes forwarding headers)
-- Request validation and error handling
-- No sensitive data logging
-- HTTPS support for production deployments
+- **Transparent Headers**: Preserves original authentication headers
+- **Direct Forwarding**: No request/response modification or logging
+- **Secure Defaults**: HTTPS support for production deployments
 
 ## 📝 License
 

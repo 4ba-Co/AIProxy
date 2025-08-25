@@ -5,29 +5,30 @@
 
 [English](README.md) | 中文
 
-
-基于 .NET 9 和 YARP（Yet Another Reverse Proxy）构建的高性能 AI 服务代理网关。KestrelAIProxy 为多个 AI 服务提供商提供统一的 API 网关，实现 AI API 请求的无缝路由和管理。
+基于 .NET 9 和 YARP（Yet Another Reverse Proxy）构建的简单透明 AI 服务代理。KestrelAIProxy 为多个 AI 服务提供商提供透明代理服务，具有最小的开销和零配置的特点。
 
 ## 🚀 功能特性
 
-- **多提供商支持**: 20+ AI 服务提供商的统一网关
+- **多提供商支持**: 20+ AI 服务提供商的透明代理
   - OpenAI、Anthropic、Google AI Studio、Google Vertex AI
   - Azure OpenAI、AWS Bedrock、Cohere、Groq
   - Mistral、DeepSeek、Perplexity AI、Hugging Face
   - ElevenLabs、Replicate、Vercel AI 等...
 
+- **透明代理**: 直接请求转发，最小化处理
 - **高性能**: 基于 .NET 9 和 Kestrel 服务器构建，使用 YARP 反向代理
-- **基于路径的路由**: 基于 URL 模式的智能请求路由
-- **请求头管理**: 自动请求头转换和转发
+- **基于路径的路由**: 简单的 URL 模式路由
+- **零配置**: 开箱即用，无需设置
 - **Docker 支持**: 开箱即用的 Docker 容器
-- **可扩展架构**: 易于添加新的 AI 提供商
-- **生产就绪**: 内置日志记录、错误处理和监控
+- **轻量级**: 最小资源使用量和快速启动
 
 ## 🏗️ 架构
 
 ```
-客户端请求 → PathPatternMiddleware → ProviderRouter → ProviderStrategy → AiGatewayMiddleware → 目标 AI 服务
+客户端请求 → 路径路由器 → 目标 AI 服务
 ```
+
+简单透明 - 根据 URL 模式路由请求并直接转发到目标 AI 服务。
 
 ## 📦 安装
 
@@ -61,24 +62,26 @@
 /{provider}/{api_path}
 ```
 
+只需将原始 AI 服务域名替换为代理 URL，并在第一个路径段添加提供商名称。
+
 ### 示例
 
 **OpenAI API**
 ```bash
-# 聊天补全
+# 原始地址: https://api.openai.com/v1/chat/completions
+# 代理地址: http://localhost:5501/openai/v1/chat/completions
+
 curl -X POST "http://localhost:5501/openai/v1/chat/completions" \
   -H "Authorization: Bearer your-openai-key" \
   -H "Content-Type: application/json" \
   -d '{"model": "gpt-4", "messages": [{"role": "user", "content": "Hello"}]}'
-
-# 模型列表
-curl "http://localhost:5501/openai/v1/models" \
-  -H "Authorization: Bearer your-openai-key"
 ```
 
 **Anthropic API**
 ```bash
-# Claude 消息
+# 原始地址: https://api.anthropic.com/v1/messages
+# 代理地址: http://localhost:5501/anthropic/v1/messages
+
 curl -X POST "http://localhost:5501/anthropic/v1/messages" \
   -H "x-api-key: your-anthropic-key" \
   -H "Content-Type: application/json" \
@@ -87,7 +90,9 @@ curl -X POST "http://localhost:5501/anthropic/v1/messages" \
 
 **Google AI Studio**
 ```bash
-# 生成内容
+# 原始地址: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
+# 代理地址: http://localhost:5501/google-ai-studio/v1beta/models/gemini-pro:generateContent
+
 curl -X POST "http://localhost:5501/google-ai-studio/v1beta/models/gemini-pro:generateContent" \
   -H "Authorization: Bearer your-google-key" \
   -H "Content-Type: application/json" \
@@ -96,7 +101,7 @@ curl -X POST "http://localhost:5501/google-ai-studio/v1beta/models/gemini-pro:ge
 
 ## 🛠️ 配置
 
-代理根据 URL 路径中的提供商名称自动路由请求。基本使用无需额外配置。
+无需配置！代理根据 URL 路径中的提供商名称自动路由请求。
 
 ## 🔌 支持的提供商
 
@@ -125,8 +130,8 @@ curl -X POST "http://localhost:5501/google-ai-studio/v1beta/models/gemini-pro:ge
 ```
 KestrelAIProxy/
 ├── KestrelAIProxy/                 # 主 Web 应用程序
-├── KestrelAIProxy.AIGateway/       # 网关中间件和策略
-│   ├── ProviderStrategies/         # AI 提供商实现
+├── KestrelAIProxy.AIGateway/       # 代理路由逻辑
+│   ├── ProviderStrategies/         # AI 提供商路由规则
 │   └── Extensions/                 # 服务扩展
 └── KestrelAIProxy.Common/          # 共享工具
 ```
@@ -135,7 +140,7 @@ KestrelAIProxy/
 
 1. 在 `ProviderStrategies/` 中创建新的策略类
 2. 实现 `IProviderStrategy` 接口
-3. 在 `AiGatewayExtensions.cs` 中自动注册策略
+3. 定义提供商名称和目标主机
 
 示例:
 ```csharp
@@ -158,17 +163,16 @@ public sealed class NewProviderStrategy : IProviderStrategy
 
 ## 📊 性能
 
-- **延迟**: 最小开销（通常 < 5ms）
-- **吞吐量**: 高性能反向代理，支持连接池
-- **内存**: 利用 .NET 9 优化实现高效内存使用
-- **可扩展性**: 通过负载均衡器支持水平扩展
+- **低延迟**: 最小的代理开销
+- **高吞吐量**: 通过 YARP 实现高效请求转发
+- **轻量级**: 小内存占用
+- **快速启动**: 应用程序快速初始化
 
 ## 🔒 安全性
 
-- 请求头清理（移除转发头）
-- 请求验证和错误处理
-- 无敏感数据日志记录
-- 生产环境部署支持 HTTPS
+- **透明请求头**: 保留原始认证请求头
+- **直接转发**: 不修改或记录请求/响应
+- **安全默认**: 生产环境支持 HTTPS
 
 ## 📝 许可证
 
