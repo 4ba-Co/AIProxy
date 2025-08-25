@@ -30,8 +30,7 @@ public sealed class PipelineRouterMiddleware(RequestDelegate next, ILogger<Pipel
     {
         if (string.IsNullOrEmpty(path) ||
             path == "/" ||
-            path.StartsWith("/favicon.ico") ||
-            path.Contains('.'))
+            path.StartsWith("/favicon.ico"))
             return PipelineType.Static;
 
         // AI网关管道
