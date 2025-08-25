@@ -1,4 +1,4 @@
-namespace KestrelAIProxy.AIGateway;
+namespace KestrelAIProxy.AIGateway.Core.Models;
 
 public sealed class ParseResult
 {

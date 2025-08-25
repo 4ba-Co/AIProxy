@@ -1,6 +1,7 @@
+using KestrelAIProxy.AIGateway.Core.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace KestrelAIProxy.AIGateway;
+namespace KestrelAIProxy.AIGateway.Core.Interfaces;
 
 public interface IProviderStrategy
 {

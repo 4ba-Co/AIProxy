@@ -4,6 +4,7 @@ using KestrelAIProxy.Common;
 using KestrelAIProxy.AIGateway.Extensions;
 using Serilog;
 using KestrelAIProxy;
+using KestrelAIProxy.AIGateway.Core.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,11 +1,12 @@
 using System.Diagnostics;
 using System.Net;
+using KestrelAIProxy.AIGateway.Core.Models;
 using KestrelAIProxy.AIGateway.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Yarp.ReverseProxy.Forwarder;
 
-namespace KestrelAIProxy.AIGateway;
+namespace KestrelAIProxy.AIGateway.Middlewares;
 
 public sealed class AiGatewayMiddleware(
     RequestDelegate next,

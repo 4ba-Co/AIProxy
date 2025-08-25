@@ -1,11 +1,6 @@
-namespace KestrelAIProxy.AIGateway;
+using KestrelAIProxy.AIGateway.Core.Interfaces;
 
-public interface IPathValidator
-{
-    bool ValidateMinimumSegments(string[] segments, int minimumCount, out string? errorMessage);
-    bool ValidateSegmentPattern(string segment, string pattern, out string? errorMessage);
-    bool ValidateNotEmpty(string value, string fieldName, out string? errorMessage);
-}
+namespace KestrelAIProxy.AIGateway.Core;
 
 public sealed class DefaultPathValidator : IPathValidator
 {
