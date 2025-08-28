@@ -1,7 +1,6 @@
 using KestrelAIProxy;
 using KestrelAIProxy.AIGateway.Core.Interfaces;
 using KestrelAIProxy.AIGateway.Extensions;
-using KestrelAIProxy.AIGateway.Middlewares;
 using KestrelAIProxy.Common;
 
 using Serilog;
@@ -41,8 +40,8 @@ app.UseStaticPipeline(staticApp =>
 });
 
 
-app.UseGatewayPipeline(gatewayApp => 
-{ 
+app.UseGatewayPipeline(gatewayApp =>
+{
     gatewayApp.UseAiGateway();
 });
 

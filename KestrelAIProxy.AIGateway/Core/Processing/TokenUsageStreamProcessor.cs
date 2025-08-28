@@ -4,9 +4,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Channels;
+
 using KestrelAIProxy.AIGateway.Core.Infrastructure;
 using KestrelAIProxy.AIGateway.Core.Interfaces;
 using KestrelAIProxy.AIGateway.Core.Models;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.ObjectPool;
 
@@ -60,7 +62,7 @@ public sealed class TokenUsageStreamProcessor : IMemoryEfficientStreamProcessor,
     {
         var reader = new SequenceReader<byte>(sequence);
         var linesToProcess = new List<ReadOnlySequence<byte>>();
-        
+
         // First, extract all lines synchronously
         while (!reader.End && !cancellationToken.IsCancellationRequested)
         {
@@ -69,7 +71,7 @@ public sealed class TokenUsageStreamProcessor : IMemoryEfficientStreamProcessor,
                 linesToProcess.Add(lineData);
             }
         }
-        
+
         // Then process them asynchronously
         foreach (var lineData in linesToProcess)
         {
@@ -110,9 +112,9 @@ public sealed class TokenUsageStreamProcessor : IMemoryEfficientStreamProcessor,
 
         // Extract JSON payload (skip "data: " prefix)
         var jsonData = lineData.Slice(DataPrefix.Length);
-        
+
         // Skip [DONE] markers
-        if (jsonData.Length >= DoneMarker.Length && 
+        if (jsonData.Length >= DoneMarker.Length &&
             jsonData.FirstSpan.StartsWith(DoneMarker))
         {
             return;
@@ -132,7 +134,7 @@ public sealed class TokenUsageStreamProcessor : IMemoryEfficientStreamProcessor,
     private static bool StartsWithDataPrefix(ReadOnlySequence<byte> sequence)
     {
         if (sequence.Length < DataPrefix.Length) return false;
-        
+
         var firstSpan = sequence.FirstSpan;
         if (firstSpan.Length >= DataPrefix.Length)
         {
@@ -198,8 +200,8 @@ public abstract class OptimizedTokenParser : ITokenParser
     protected static bool TryGetProperty(ref Utf8JsonReader reader, ReadOnlySpan<byte> propertyName, out JsonElement element)
     {
         element = default;
-        
-        if (reader.TokenType != JsonTokenType.PropertyName || 
+
+        if (reader.TokenType != JsonTokenType.PropertyName ||
             !reader.ValueTextEquals(propertyName))
         {
             return false;
@@ -232,7 +234,7 @@ public sealed class OpenAiTokenParser : OptimizedTokenParser
     public override bool TryParseTokens(ReadOnlySpan<byte> jsonData, out TokenMetrics tokens)
     {
         tokens = default;
-        
+
         try
         {
             var reader = new Utf8JsonReader(jsonData, JsonOptions);
@@ -330,7 +332,7 @@ public sealed class AnthropicTokenParser : OptimizedTokenParser
     public override bool TryParseTokens(ReadOnlySpan<byte> jsonData, out TokenMetrics tokens)
     {
         tokens = default;
-        
+
         try
         {
             var reader = new Utf8JsonReader(jsonData, JsonOptions);
@@ -411,4 +413,3 @@ public sealed class AnthropicTokenParser : OptimizedTokenParser
         return false;
     }
 }
-

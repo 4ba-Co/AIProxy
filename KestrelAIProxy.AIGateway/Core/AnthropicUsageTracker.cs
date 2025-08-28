@@ -1,6 +1,7 @@
 using KestrelAIProxy.AIGateway.Core.Interfaces;
 using KestrelAIProxy.AIGateway.Core.Models;
 using KestrelAIProxy.AIGateway.Extensions;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +22,7 @@ public sealed class AnthropicUsageTracker : IUsageTracker
     public bool ShouldTrack(HttpContext context, ParsedPath parsedPath)
     {
         var parseResult = context.GetParseResult();
-        
+
         // Only track Anthropic requests
         if (parseResult?.Metadata?.GetValueOrDefault("Provider") is not string provider ||
             !string.Equals(provider, ProviderName, StringComparison.OrdinalIgnoreCase))
@@ -74,15 +75,8 @@ public sealed class AnthropicUsageTracker : IUsageTracker
 
     private async Task StoreAnthropicUsageData(AnthropicUsageResult usageResult)
     {
-        // TODO: Implement your storage logic here
-        // Examples:
-        // - Database storage
-        // - Metrics collection
-        // - Usage tracking
-        // - Billing integration
-        
-        await Task.Delay(1); // Placeholder to make the method async
-        
+        await Task.CompletedTask;
+
         // Example implementation ideas:
         /*
         await _usageRepository.SaveAsync(new AnthropicUsageRecord

@@ -1,6 +1,7 @@
 using KestrelAIProxy.AIGateway.Core.Interfaces;
 using KestrelAIProxy.AIGateway.Core.Models;
 using KestrelAIProxy.AIGateway.Extensions;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -39,7 +40,7 @@ public sealed class OpenAiUsageTracker : IUsageTracker
 
         // Build the endpoint path from segments
         var endpointPath = string.Join("/", segments);
-        return SupportedEndpoints.Any(endpoint => 
+        return SupportedEndpoints.Any(endpoint =>
             endpoint.Equals(endpointPath, StringComparison.OrdinalIgnoreCase));
     }
 
@@ -80,14 +81,8 @@ public sealed class OpenAiUsageTracker : IUsageTracker
 
     private async Task StoreOpenAiUsageData(OpenAiUsageResult usageResult)
     {
-        // TODO: Implement your storage logic here
-        // Examples:
-        // - Database storage
-        // - Metrics collection  
-        // - Usage tracking
-        
-        await Task.Delay(1); // Placeholder to make the method async
-        
+        await Task.CompletedTask;
+
         // Example implementation ideas:
         /*
         await _usageRepository.SaveAsync(new OpenAiUsageRecord

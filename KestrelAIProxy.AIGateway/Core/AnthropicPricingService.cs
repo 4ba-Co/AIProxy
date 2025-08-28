@@ -23,7 +23,7 @@ public sealed class AnthropicPricingService : IAnthropicPricingService
             CacheWritePrice = 3.75m,
             CacheReadPrice = 0.30m
         },
-        
+
         // Claude 3.5 Haiku
         ["claude-3-5-haiku-20241022"] = new()
         {
@@ -41,7 +41,7 @@ public sealed class AnthropicPricingService : IAnthropicPricingService
             CacheWritePrice = 18.75m,
             CacheReadPrice = 1.50m
         },
-        
+
         // Claude 3 Sonnet
         ["claude-3-sonnet-20240229"] = new()
         {
@@ -50,7 +50,7 @@ public sealed class AnthropicPricingService : IAnthropicPricingService
             CacheWritePrice = 3.75m,
             CacheReadPrice = 0.30m
         },
-        
+
         // Claude 3 Haiku
         ["claude-3-haiku-20240307"] = new()
         {
@@ -77,7 +77,7 @@ public sealed class AnthropicPricingService : IAnthropicPricingService
             CacheReadCost = CalculateCost(usage.CacheReadInputTokens ?? 0, pricing.CacheReadPrice)
         };
 
-        breakdown.TotalCost = breakdown.InputCost + breakdown.OutputCost + 
+        breakdown.TotalCost = breakdown.InputCost + breakdown.OutputCost +
                              breakdown.CacheCreationCost + breakdown.CacheReadCost;
 
         return breakdown;

@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+
 using KestrelAIProxy.AIGateway.Core.Models;
 
 namespace KestrelAIProxy.AIGateway.Core;

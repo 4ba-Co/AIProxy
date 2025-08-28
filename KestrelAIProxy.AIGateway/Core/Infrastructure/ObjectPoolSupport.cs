@@ -1,5 +1,6 @@
-using Microsoft.Extensions.ObjectPool;
 using System.Text;
+
+using Microsoft.Extensions.ObjectPool;
 
 namespace KestrelAIProxy.AIGateway.Core.Infrastructure;
 
@@ -52,40 +53,6 @@ public interface IPoolResettable
 }
 
 /// <summary>
-/// Object pool wrapper for easy access
-/// </summary>
-public static class ObjectPoolExtensions
-{
-    /// <summary>
-    /// Gets an object from the pool and ensures it's disposed when the scope ends
-    /// </summary>
-    public static PooledObject<T> GetScoped<T>(this ObjectPool<T> pool) where T : class
-    {
-        return new PooledObject<T>(pool);
-    }
-}
-
-/// <summary>
-/// RAII wrapper for pooled objects
-/// </summary>
-public readonly struct PooledObject<T> : IDisposable where T : class
-{
-    private readonly ObjectPool<T> _pool;
-    public readonly T Value;
-
-    public PooledObject(ObjectPool<T> pool)
-    {
-        _pool = pool;
-        Value = pool.Get();
-    }
-
-    public void Dispose()
-    {
-        _pool.Return(Value);
-    }
-}
-
-/// <summary>
 /// High-performance object pool implementation
 /// </summary>
 public sealed class FastObjectPool<T>(IPooledObjectPolicy<T> policy, int maxCapacity = 64) : ObjectPool<T>
@@ -98,11 +65,11 @@ public sealed class FastObjectPool<T>(IPooledObjectPolicy<T> policy, int maxCapa
     public override T Get()
     {
         var items = _items;
-        
+
         for (int i = 0; i < items.Length; i++)
         {
             var item = items[i];
-            if (item != null && Interlocked.CompareExchange(ref items[i], null, item) == item)
+            if (item != null && Interlocked.CompareExchange(ref items[i], null!, item) == item)
             {
                 Interlocked.Decrement(ref _count);
                 return item;
@@ -120,7 +87,7 @@ public sealed class FastObjectPool<T>(IPooledObjectPolicy<T> policy, int maxCapa
         }
 
         var items = _items;
-        
+
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i] == null && Interlocked.CompareExchange(ref items[i], obj, null) == null)

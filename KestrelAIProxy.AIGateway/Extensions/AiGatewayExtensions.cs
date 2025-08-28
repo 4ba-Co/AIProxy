@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 using KestrelAIProxy.AIGateway.Core;
 using KestrelAIProxy.AIGateway.Core.Interfaces;
+using KestrelAIProxy.AIGateway.Core.Processing;
 using KestrelAIProxy.AIGateway.Middlewares;
 using KestrelAIProxy.AIGateway.ProviderStrategies;
 
@@ -26,18 +27,26 @@ public static class AiGatewayExtensions
         services.AddSingleton<IResultBuilder, DefaultResultBuilder>();
         services.AddSingleton<IPathParser, DefaultPathParser>();
         services.AddSingleton<IProviderRouter, DefaultProviderRouter>();
-        
+
         // Pricing services
         services.AddSingleton<IAnthropicPricingService, AnthropicPricingService>();
-        
+
         // Usage tracking services
         services.AddSingleton<IUsageTracker, OpenAiUsageTracker>();
         services.AddSingleton<IUsageTracker, AnthropicUsageTracker>();
-        
+
         // Response processors
         services.AddSingleton<OpenAiResponseProcessor>();
         services.AddSingleton<AnthropicResponseProcessor>();
-        
+
+        // High-performance stream processors
+        services.AddSingleton<TokenUsageStreamProcessor>();
+        services.AddSingleton<IMemoryEfficientStreamProcessor, TokenUsageStreamProcessor>();
+
+        // Token parsers for different providers
+        services.AddSingleton<ITokenParser, OpenAiTokenParser>();
+        services.AddSingleton<ITokenParser, AnthropicTokenParser>();
+
         services.AddHttpForwarder();
         RegisterProviderStrategies(services);
         return services;

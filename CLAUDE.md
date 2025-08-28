@@ -183,6 +183,7 @@ services.AddSingleton<IUsageTracker, NewProviderUsageTracker>();
 - **Object Pooling**: Reuse of StringBuilder and other frequently allocated objects
 - **High-Performance JSON**: Source-generated serialization with `Utf8JsonReader`
 - **Connection Pooling**: HTTP/2 multi-connection support with 300s activity timeout
+- **Dynamic Stream Detection**: Response Content-Type based streaming mode detection with fallback
 
 ### Security & Reliability
 - **Header Sanitization**: Automatic removal of proxy/forwarding headers (X-Forwarded-*, CF-*)
@@ -193,8 +194,9 @@ services.AddSingleton<IUsageTracker, NewProviderUsageTracker>();
 ### Usage Analytics
 - **Real-time Tracking**: Token usage statistics for OpenAI and Anthropic formats
 - **Cost Calculation**: Precise billing calculations with model-specific pricing
-- **Streaming Support**: Real-time token extraction from SSE responses
+- **Streaming Support**: Real-time token extraction from SSE responses using Pipelines
 - **Multiple Formats**: Support for different provider response formats
+- **Optimized Processing**: Separate paths for streaming (Pipelines) and non-streaming (CopyToAsync)
 
 ## Performance Benchmarks
 
@@ -210,3 +212,16 @@ services.AddSingleton<IUsageTracker, NewProviderUsageTracker>();
 - **Memory Usage**: 60-80% reduction
 - **Cold Start**: Sub-second in containers
 - **Package Size**: ~50MB self-contained
+
+## Recent Optimizations
+
+### Stream Processing
+- **TokenUsageStreamProcessor**: Enabled high-performance token extraction using System.IO.Pipelines
+- **Dynamic Stream Detection**: Response-based Content-Type detection instead of request-based prediction
+- **Memory Efficiency**: Zero-copy stream processing with ArrayPool for reduced GC pressure
+
+### Code Quality
+- **Logging Levels**: Optimized log levels (Information for success, Warning for recoverable failures, Trace for verbose)
+- **Error Handling**: Appropriate exception handling without excessive logging
+- **Memory Management**: Efficient stream handling with CopyToAsync for non-streaming responses
+- **Clean Architecture**: Removed 1000+ lines of unused code (SseInterceptorMiddleware, BatchProcessingEngine, etc.)

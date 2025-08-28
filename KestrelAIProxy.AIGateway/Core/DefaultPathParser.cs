@@ -12,9 +12,7 @@ public sealed class DefaultPathParser : IPathParser
             return new ParsedPath { OriginalPath = path };
         }
 
-        // 分割路径段，移除空段
-        var segments = path
-            .Split('/', StringSplitOptions.RemoveEmptyEntries);
+        var segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
 
         return new ParsedPath
         {
