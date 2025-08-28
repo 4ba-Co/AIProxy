@@ -15,13 +15,10 @@ public static class AiGatewayExtensions
     public static IApplicationBuilder UseAiGateway(this IApplicationBuilder applicationBuilder)
     {
         applicationBuilder.UseMiddleware<PathPatternMiddleware>();
-        // WARN: this would print users private messages in the logs if you enable it
-        // now the project is deployed in a public environment, so it's disabled by default
-        // applicationBuilder.UseMiddleware<SseInterceptorMiddleware>();
+        applicationBuilder.UseMiddleware<UniversalUsageMiddleware>();
         applicationBuilder.UseMiddleware<AiGatewayMiddleware>();
         return applicationBuilder;
     }
-
     public static IServiceCollection AddAiGatewayFundamentalComponents(this IServiceCollection services)
     {
         services.AddSingleton<IPathValidator, DefaultPathValidator>();
@@ -29,6 +26,18 @@ public static class AiGatewayExtensions
         services.AddSingleton<IResultBuilder, DefaultResultBuilder>();
         services.AddSingleton<IPathParser, DefaultPathParser>();
         services.AddSingleton<IProviderRouter, DefaultProviderRouter>();
+        
+        // Pricing services
+        services.AddSingleton<IAnthropicPricingService, AnthropicPricingService>();
+        
+        // Usage tracking services
+        services.AddSingleton<IUsageTracker, OpenAiUsageTracker>();
+        services.AddSingleton<IUsageTracker, AnthropicUsageTracker>();
+        
+        // Response processors
+        services.AddSingleton<OpenAiResponseProcessor>();
+        services.AddSingleton<AnthropicResponseProcessor>();
+        
         services.AddHttpForwarder();
         RegisterProviderStrategies(services);
         return services;
