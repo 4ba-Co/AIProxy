@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-KestrelAIProxy is a high-performance AI service proxy gateway built with .NET 9 and YARP (Yet Another Reverse Proxy). It provides a unified API gateway for 20+ AI service providers with path-based routing.
+KestrelAIProxy is a high-performance AI service proxy gateway built with .NET 10 preview and YARP (Yet Another Reverse Proxy). It provides a unified API gateway for 20+ AI service providers with path-based routing. The project is configured for AOT compilation with speed optimization.
 
 ## Common Development Commands
 
@@ -32,6 +32,16 @@ docker run -p 5501:5501 kestrel-ai-proxy
 ### Testing and Quality
 - No test projects are currently present in the solution
 - No explicit lint commands configured in project files
+- Project uses AOT compilation analyzers and trim analyzers for code quality
+
+### Publishing
+```bash
+# Publish with AOT compilation (optimized for production)
+dotnet publish --configuration Release --self-contained true
+
+# Publish for specific runtime
+dotnet publish -r linux-x64 --configuration Release --self-contained true
+```
 
 ## Architecture
 
@@ -91,8 +101,9 @@ public sealed class NewProviderStrategy : IProviderStrategy
 
 ## Key Configuration
 
-- **Framework**: .NET 9.0
+- **Framework**: .NET 10.0 preview (with AOT compilation support)
 - **Main Dependencies**: YARP.ReverseProxy (2.3.0), Serilog
+- **Optimization**: Configured for speed optimization with trim analysis
 - **Port**: 5501 (default)
 - **Request Format**: `/{provider}/{api_path}`
 - **Health Check**: `/health`
