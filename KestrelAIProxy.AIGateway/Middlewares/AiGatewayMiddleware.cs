@@ -27,7 +27,7 @@ public sealed class AiGatewayMiddleware(
     {
         UseProxy = false,
         AllowAutoRedirect = false,
-        AutomaticDecompression = DecompressionMethods.None,
+        AutomaticDecompression = DecompressionMethods.All,
         UseCookies = false,
         EnableMultipleHttp2Connections = true,
         ActivityHeadersPropagator = new ReverseProxyPropagator(DistributedContextPropagator.Current),

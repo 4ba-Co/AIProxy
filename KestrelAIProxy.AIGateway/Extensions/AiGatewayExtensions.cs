@@ -40,7 +40,6 @@ public static class AiGatewayExtensions
         services.AddSingleton<AnthropicResponseProcessor>();
 
         // High-performance stream processors
-        services.AddSingleton<TokenUsageStreamProcessor>();
         services.AddSingleton<IMemoryEfficientStreamProcessor, TokenUsageStreamProcessor>();
 
         // Token parsers for different providers

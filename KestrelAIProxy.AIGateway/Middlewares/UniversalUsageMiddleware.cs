@@ -1,6 +1,5 @@
 using KestrelAIProxy.AIGateway.Core;
 using KestrelAIProxy.AIGateway.Core.Interfaces;
-using KestrelAIProxy.AIGateway.Core.Models;
 using KestrelAIProxy.AIGateway.Extensions;
 
 using Microsoft.AspNetCore.Http;
@@ -39,10 +38,9 @@ public sealed class UniversalUsageMiddleware(
         }
 
         var requestId = GenerateRequestId();
-        var isStreaming = IsStreamingRequest(context);
 
-        logger.LogDebug("Intercepting {Provider} request {RequestId}, Streaming: {IsStreaming}",
-            tracker.ProviderName, requestId, isStreaming);
+        logger.LogDebug("Intercepting {Provider} request {RequestId}",
+            tracker.ProviderName, requestId);
 
         // Get the appropriate response processor
         var processor = GetResponseProcessor(tracker.ProviderName);
@@ -59,7 +57,6 @@ public sealed class UniversalUsageMiddleware(
             originalBodyStream,
             processor,
             requestId,
-            isStreaming,
             tracker.ProviderName,
             tracker.OnUsageDetectedAsync,
             logger,
@@ -86,22 +83,6 @@ public sealed class UniversalUsageMiddleware(
             "anthropic" => serviceProvider.GetService<AnthropicResponseProcessor>(),
             _ => null
         };
-    }
-
-    private static bool IsStreamingRequest(HttpContext context)
-    {
-        var acceptHeader = context.Request.Headers.Accept.ToString();
-        if (acceptHeader.Contains("text/event-stream", StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
-        if (context.Request.Query.TryGetValue("stream", out var streamValue))
-        {
-            return string.Equals(streamValue, "true", StringComparison.OrdinalIgnoreCase);
-        }
-
-        return false;
     }
 
     private static string GenerateRequestId()

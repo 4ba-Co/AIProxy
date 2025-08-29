@@ -5,13 +5,48 @@ using Microsoft.Extensions.ObjectPool;
 namespace KestrelAIProxy.AIGateway.Core.Infrastructure;
 
 /// <summary>
-/// Object pool policy for StringBuilder instances
+/// Object pool wrapper for easy access
+/// </summary>
+public static class ObjectPoolExtensions
+{
+    /// <summary>
+    /// Gets an object from the pool and ensures it's disposed when the scope ends
+    /// </summary>
+    public static PooledObject<T> GetScoped<T>(this ObjectPool<T> pool) where T : class
+    {
+        return new PooledObject<T>(pool);
+    }
+}
+
+/// <summary>
+/// RAII wrapper for pooled objects
+/// </summary>
+public readonly struct PooledObject<T> : IDisposable where T : class
+{
+    private readonly ObjectPool<T> _pool;
+    public readonly T Value;
+
+    public PooledObject(ObjectPool<T> pool)
+    {
+        _pool = pool;
+        Value = pool.Get();
+    }
+
+    public void Dispose()
+    {
+        _pool.Return(Value);
+    }
+}
+
+/// <summary>
+/// Object pool policy for StringBuilder instances optimized for AI response processing
 /// </summary>
 public sealed class StringBuilderPooledObjectPolicy : IPooledObjectPolicy<StringBuilder>
 {
-    private const int MaxCapacity = 1024;
+    private const int InitialCapacity = 512; // Initial capacity for new StringBuilders
+    private const int MaxCapacity = 1024; // Maximum capacity to retain in pool
 
-    public StringBuilder Create() => new StringBuilder();
+    public StringBuilder Create() => new(InitialCapacity);
 
     public bool Return(StringBuilder obj)
     {
@@ -40,6 +75,7 @@ public sealed class DefaultPooledObjectPolicy<T> : IPooledObjectPolicy<T> where 
         {
             resettable.Reset();
         }
+
         return true;
     }
 }

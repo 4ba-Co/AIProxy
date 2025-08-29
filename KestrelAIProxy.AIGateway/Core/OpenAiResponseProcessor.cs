@@ -1,4 +1,3 @@
-using System.Buffers;
 using System.IO.Pipelines;
 using System.Text;
 using System.Text.Json;
@@ -10,26 +9,16 @@ using Microsoft.Extensions.Logging;
 
 namespace KestrelAIProxy.AIGateway.Core;
 
-public sealed class OpenAiResponseProcessor : IResponseProcessor
+public sealed class OpenAiResponseProcessor(
+    ILogger<OpenAiResponseProcessor> logger,
+    IMemoryEfficientStreamProcessor streamProcessor,
+    IEnumerable<ITokenParser> tokenParsers)
+    : IResponseProcessor
 {
-    private readonly ILogger<OpenAiResponseProcessor> _logger;
-    private readonly IMemoryEfficientStreamProcessor _streamProcessor;
-    private readonly IEnumerable<ITokenParser> _tokenParsers;
-
-    public OpenAiResponseProcessor(
-        ILogger<OpenAiResponseProcessor> logger,
-        IMemoryEfficientStreamProcessor streamProcessor,
-        IEnumerable<ITokenParser> tokenParsers)
-    {
-        _logger = logger;
-        _streamProcessor = streamProcessor;
-        _tokenParsers = tokenParsers;
-    }
-
     private ITokenParser GetOpenAiTokenParser()
     {
-        return _tokenParsers.FirstOrDefault(p => p.GetType().Name.Contains("OpenAi"))
-               ?? _tokenParsers.First();
+        return tokenParsers.FirstOrDefault(p => p.GetType().Name.Contains("OpenAi"))
+               ?? tokenParsers.First();
     }
 
     public async Task ProcessAsync(
@@ -78,7 +67,7 @@ public sealed class OpenAiResponseProcessor : IResponseProcessor
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Failed to process OpenAI streaming response for request {RequestId}", requestId);
+            logger.LogWarning(ex, "Failed to process OpenAI streaming response for request {RequestId}", requestId);
         }
     }
 
@@ -100,7 +89,7 @@ public sealed class OpenAiResponseProcessor : IResponseProcessor
         }
         catch (Exception ex)
         {
-            _logger.LogDebug(ex, "Stream reading interrupted");
+            logger.LogDebug(ex, "Stream reading interrupted");
         }
         finally
         {
@@ -127,7 +116,7 @@ public sealed class OpenAiResponseProcessor : IResponseProcessor
                     break;
 
                 // Process the buffer with high-performance stream processor
-                await _streamProcessor.ProcessStreamAsync(
+                await streamProcessor.ProcessStreamAsync(
                     buffer,
                     parser,
                     async tokens => await OnTokensDetected(tokens, requestId, provider, onUsageDetected),
@@ -141,7 +130,7 @@ public sealed class OpenAiResponseProcessor : IResponseProcessor
         }
         catch (Exception ex)
         {
-            _logger.LogDebug(ex, "Pipe data processing interrupted");
+            logger.LogDebug(ex, "Pipe data processing interrupted");
         }
         finally
         {
@@ -245,7 +234,7 @@ public sealed class OpenAiResponseProcessor : IResponseProcessor
         }
         catch (JsonException)
         {
-            _logger.LogTrace("Invalid OpenAI SSE chunk: {JsonData}", jsonData.Length > 100 ? jsonData[..100] + "..." : jsonData);
+            logger.LogTrace("Invalid OpenAI SSE chunk: {JsonData}", jsonData.Length > 100 ? jsonData[..100] + "..." : jsonData);
         }
     }
 
@@ -256,24 +245,113 @@ public sealed class OpenAiResponseProcessor : IResponseProcessor
         Func<BaseUsageResult, Task> onUsageDetected,
         CancellationToken cancellationToken)
     {
-        using var memoryStream = new MemoryStream();
+        try
+        {
+            // Use the same Pipe-based approach as streaming for consistency
+            var pipe = new Pipe();
+            var parser = GetOpenAiTokenParser();
+
+            // Read stream data into pipe
+            var readTask = ReadStreamIntoPipeAsync(responseStream, pipe.Writer, cancellationToken);
+
+            // Collect all data from pipe into a single buffer for non-streaming JSON parsing
+            var collectTask = CollectNonStreamingDataAsync(pipe.Reader, parser, requestId, provider, onUsageDetected, cancellationToken);
+
+            // Wait for both tasks to complete
+            await Task.WhenAll(readTask, collectTask);
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when cancellation token is triggered
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Failed to process OpenAI non-streaming response for request {RequestId}", requestId);
+        }
+    }
+
+    private async Task CollectNonStreamingDataAsync(
+        PipeReader reader,
+        ITokenParser parser,
+        string requestId,
+        string provider,
+        Func<BaseUsageResult, Task> onUsageDetected,
+        CancellationToken cancellationToken)
+    {
+        var responseData = new List<ReadOnlyMemory<byte>>();
+        var totalLength = 0;
+
+        try
+        {
+            // Collect all data from the pipe
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var result = await reader.ReadAsync(cancellationToken);
+                var buffer = result.Buffer;
+
+                if (!buffer.IsEmpty)
+                {
+                    // Store the buffer data
+                    foreach (var segment in buffer)
+                    {
+                        var copy = new byte[segment.Length];
+                        segment.CopyTo(copy);
+                        responseData.Add(copy);
+                        totalLength += segment.Length;
+                    }
+                }
+
+                reader.AdvanceTo(buffer.End);
+
+                if (result.IsCompleted)
+                    break;
+            }
+
+            // Process the collected data
+            if (totalLength > 0)
+            {
+                await ProcessCollectedJsonData(responseData, totalLength, parser, requestId, provider, onUsageDetected, cancellationToken);
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogDebug(ex, "Non-streaming data collection interrupted");
+        }
+        finally
+        {
+            await reader.CompleteAsync();
+        }
+    }
+
+    private async Task ProcessCollectedJsonData(
+        List<ReadOnlyMemory<byte>> responseData,
+        int totalLength,
+        ITokenParser parser,
+        string requestId,
+        string provider,
+        Func<BaseUsageResult, Task> onUsageDetected,
+        CancellationToken cancellationToken)
+    {
+        // Combine all data into a single contiguous buffer
+        var combinedBuffer = new byte[totalLength];
+        var offset = 0;
+
+        foreach (var segment in responseData)
+        {
+            segment.CopyTo(combinedBuffer.AsMemory(offset));
+            offset += segment.Length;
+        }
+
         var responseText = string.Empty;
 
         try
         {
-            // Copy all response data efficiently
-            await responseStream.CopyToAsync(memoryStream, cancellationToken);
-            memoryStream.Position = 0;
-
-            // Convert stream to string with proper encoding
-            if (memoryStream.Length == 0) return;
-
-            using var reader = new StreamReader(memoryStream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
-            responseText = await reader.ReadToEndAsync(cancellationToken);
+            // Convert to string with proper UTF-8 handling
+            responseText = Encoding.UTF8.GetString(combinedBuffer);
 
             if (string.IsNullOrWhiteSpace(responseText)) return;
 
-            _logger.LogTrace("Processing OpenAI response of length {Length} for request {RequestId}",
+            logger.LogTrace("Processing OpenAI response of length {Length} for request {RequestId}",
                 responseText.Length, requestId);
 
             var response = JsonSerializer.Deserialize(responseText, SourceGenerationContext.Default.OpenAiResponse);
@@ -291,22 +369,18 @@ public sealed class OpenAiResponseProcessor : IResponseProcessor
                 };
 
                 await onUsageDetected(usageResult);
-                _logger.LogInformation("OpenAI usage: {RequestId} - Input:{PromptTokens}/Output:{CompletionTokens}/Total:{TotalTokens}",
+                logger.LogInformation("OpenAI usage: {RequestId} - Input:{PromptTokens}/Output:{CompletionTokens}/Total:{TotalTokens}",
                     requestId, response.Usage.PromptTokens, response.Usage.CompletionTokens, response.Usage.TotalTokens);
             }
             else
             {
-                _logger.LogTrace("No usage data in OpenAI response for {RequestId}", requestId);
+                logger.LogTrace("No usage data in OpenAI response for {RequestId}", requestId);
             }
         }
         catch (JsonException)
         {
-            _logger.LogDebug("Failed to parse OpenAI JSON for {RequestId}, length: {Length}",
+            logger.LogDebug("Failed to parse OpenAI JSON for {RequestId}, length: {Length}",
                 requestId, responseText.Length);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(ex, "Failed to process OpenAI response for {RequestId}", requestId);
         }
     }
 }

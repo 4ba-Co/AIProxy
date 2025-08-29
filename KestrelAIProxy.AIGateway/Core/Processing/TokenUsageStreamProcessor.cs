@@ -1,9 +1,7 @@
 using System.Buffers;
-using System.IO.Pipelines;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Channels;
 
 using KestrelAIProxy.AIGateway.Core.Infrastructure;
 using KestrelAIProxy.AIGateway.Core.Interfaces;
@@ -17,22 +15,18 @@ namespace KestrelAIProxy.AIGateway.Core.Processing;
 /// <summary>
 /// Optimized stream processor using System.IO.Pipelines and memory pools for token usage extraction
 /// </summary>
-public sealed class TokenUsageStreamProcessor : IMemoryEfficientStreamProcessor, IDisposable
+public sealed class TokenUsageStreamProcessor(ILogger<TokenUsageStreamProcessor> logger)
+    : IMemoryEfficientStreamProcessor, IDisposable
 {
-    private readonly ILogger<TokenUsageStreamProcessor> _logger;
     private readonly ArrayPool<byte> _bytePool = ArrayPool<byte>.Shared;
-    private readonly ObjectPool<StringBuilder> _stringBuilderPool;
+    private readonly ObjectPool<StringBuilder> _stringBuilderPool =
+        new FastObjectPool<StringBuilder>(new Infrastructure.StringBuilderPooledObjectPolicy(), maxCapacity: 128);
+
 
     // Pre-compiled patterns for faster SSE parsing
     private static ReadOnlySpan<byte> DataPrefix => "data: "u8;
     private static ReadOnlySpan<byte> DoneMarker => "[DONE]"u8;
     private static ReadOnlySpan<byte> NewLine => "\n"u8;
-
-    public TokenUsageStreamProcessor(ILogger<TokenUsageStreamProcessor> logger)
-    {
-        _logger = logger;
-        _stringBuilderPool = new DefaultObjectPool<StringBuilder>(new Infrastructure.StringBuilderPooledObjectPolicy());
-    }
 
     public async ValueTask ProcessStreamAsync(
         ReadOnlySequence<byte> data,
@@ -50,7 +44,7 @@ public sealed class TokenUsageStreamProcessor : IMemoryEfficientStreamProcessor,
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error processing stream sequence");
+            logger.LogError(ex, "Error processing stream sequence");
         }
     }
 
@@ -176,6 +170,81 @@ public sealed class TokenUsageStreamProcessor : IMemoryEfficientStreamProcessor,
         }
     }
 
+    /// <summary>
+    /// Simple string-based processing method (for backward compatibility, not used in current implementation)
+    /// </summary>
+    public async ValueTask ProcessStreamWithStringBuilderAsync(
+        Stream responseStream,
+        ITokenParser parser,
+        Func<TokenMetrics, ValueTask> onTokensParsed,
+        CancellationToken cancellationToken = default)
+    {
+        using var stringBuilder = _stringBuilderPool.GetScoped();
+        var buffer = new byte[4096];
+
+        try
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
+                if (bytesRead == 0) break;
+
+                var text = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                stringBuilder.Value.Append(text);
+
+                await ProcessStringBuilderLines(stringBuilder.Value, parser, onTokensParsed);
+            }
+
+            // Process any remaining content
+            if (stringBuilder.Value.Length > 0)
+            {
+                await ProcessStringBuilderLines(stringBuilder.Value, parser, onTokensParsed, flush: true);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected cancellation
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error processing stream with StringBuilder");
+        }
+    }
+
+    private async ValueTask ProcessStringBuilderLines(
+        StringBuilder lineBuffer,
+        ITokenParser parser,
+        Func<TokenMetrics, ValueTask> onTokensParsed,
+        bool flush = false)
+    {
+        var content = lineBuffer.ToString();
+
+        int newlineIndex;
+        while ((newlineIndex = content.IndexOf('\n')) != -1)
+        {
+            var line = content[..newlineIndex].TrimEnd('\r');
+            content = content[(newlineIndex + 1)..];
+
+            if (line.StartsWith("data: "))
+            {
+                var jsonData = line[6..].Trim();
+                if (jsonData == "[DONE]") continue;
+
+                if (parser.TryParseStreamingTokens(Encoding.UTF8.GetBytes(jsonData), out var tokens))
+                {
+                    await onTokensParsed(tokens);
+                }
+            }
+        }
+
+        // Update buffer with remaining content
+        lineBuffer.Clear();
+        if (!flush && content.Length > 0)
+        {
+            lineBuffer.Append(content);
+        }
+    }
+
     public void Dispose()
     {
         // Nothing to dispose for pools as they're shared
@@ -197,7 +266,8 @@ public abstract class OptimizedTokenParser : ITokenParser
     public abstract bool TryParseStreamingTokens(ReadOnlySpan<byte> chunkData, out TokenMetrics tokens);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    protected static bool TryGetProperty(ref Utf8JsonReader reader, ReadOnlySpan<byte> propertyName, out JsonElement element)
+    protected static bool TryGetProperty(ref Utf8JsonReader reader, ReadOnlySpan<byte> propertyName,
+        out JsonElement element)
     {
         element = default;
 
