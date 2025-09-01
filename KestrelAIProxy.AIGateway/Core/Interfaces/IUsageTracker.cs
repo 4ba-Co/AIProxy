@@ -1,3 +1,5 @@
+using System.Text;
+
 using KestrelAIProxy.AIGateway.Core.Models;
 
 using Microsoft.AspNetCore.Http;
@@ -14,7 +16,7 @@ public interface IUsageTracker
 public interface IResponseProcessor
 {
     Task ProcessAsync(
-        Stream originalStream,
+        Stream responseStream,
         string requestId,
         bool isStreaming,
         string provider,

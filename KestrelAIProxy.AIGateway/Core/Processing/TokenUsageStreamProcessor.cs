@@ -54,20 +54,20 @@ public sealed class TokenUsageStreamProcessor(ILogger<TokenUsageStreamProcessor>
         Func<TokenMetrics, ValueTask> onTokensParsed,
         CancellationToken cancellationToken)
     {
+        // Extract lines synchronously to avoid SequenceReader crossing async boundaries
+        var lines = new List<ReadOnlySequence<byte>>();
         var reader = new SequenceReader<byte>(sequence);
-        var linesToProcess = new List<ReadOnlySequence<byte>>();
 
-        // First, extract all lines synchronously
         while (!reader.End && !cancellationToken.IsCancellationRequested)
         {
             if (TryReadSseLine(ref reader, out var lineData))
             {
-                linesToProcess.Add(lineData);
+                lines.Add(lineData);
             }
         }
 
-        // Then process them asynchronously
-        foreach (var lineData in linesToProcess)
+        // Process lines asynchronously
+        foreach (var lineData in lines)
         {
             await ProcessSseLineAsync(lineData, parser, onTokensParsed);
         }
@@ -108,67 +108,41 @@ public sealed class TokenUsageStreamProcessor(ILogger<TokenUsageStreamProcessor>
         var jsonData = lineData.Slice(DataPrefix.Length);
 
         // Skip [DONE] markers
-        if (jsonData.Length >= DoneMarker.Length &&
-            jsonData.FirstSpan.StartsWith(DoneMarker))
+        if (SequenceStartsWith(jsonData, DoneMarker))
         {
             return;
         }
 
-        // Parse tokens from JSON
-        if (TryGetSpanFromSequence(jsonData, out var jsonSpan))
+        // Parse tokens from JSON (zero-copy with ReadOnlySequence<byte>)
+        if (parser.TryParseStreamingTokens(in jsonData, out var tokens))
         {
-            if (parser.TryParseStreamingTokens(jsonSpan, out var tokens))
-            {
-                await onTokensParsed(tokens);
-            }
+            await onTokensParsed(tokens);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool StartsWithDataPrefix(ReadOnlySequence<byte> sequence)
     {
-        if (sequence.Length < DataPrefix.Length) return false;
-
-        var firstSpan = sequence.FirstSpan;
-        if (firstSpan.Length >= DataPrefix.Length)
-        {
-            return firstSpan.StartsWith(DataPrefix);
-        }
-
-        // Handle case where prefix spans multiple segments
-        Span<byte> buffer = stackalloc byte[DataPrefix.Length];
-        sequence.Slice(0, DataPrefix.Length).CopyTo(buffer);
-        return buffer.SequenceEqual(DataPrefix);
+        return SequenceStartsWith(sequence, DataPrefix);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool TryGetSpanFromSequence(ReadOnlySequence<byte> sequence, out ReadOnlySpan<byte> span)
+    private static bool SequenceStartsWith(ReadOnlySequence<byte> sequence, ReadOnlySpan<byte> value)
     {
-        if (sequence.IsSingleSegment)
+        if (sequence.Length < value.Length) return false;
+
+        // Fast path: single segment
+        if (sequence.FirstSpan.Length >= value.Length)
         {
-            span = sequence.FirstSpan;
-            return true;
+            return sequence.FirstSpan.StartsWith(value);
         }
 
-        // For multi-segment sequences, we need to copy to a contiguous buffer
-        if (sequence.Length > 4096) // Reasonable limit for JSON payloads
-        {
-            span = default;
-            return false;
-        }
-
-        var buffer = _bytePool.Rent((int)sequence.Length);
-        try
-        {
-            sequence.CopyTo(buffer);
-            span = buffer.AsSpan(0, (int)sequence.Length);
-            return true;
-        }
-        finally
-        {
-            _bytePool.Return(buffer);
-        }
+        // Cross-segment slow path
+        Span<byte> buffer = stackalloc byte[value.Length];
+        sequence.Slice(0, value.Length).CopyTo(buffer);
+        return buffer.SequenceEqual(value);
     }
+
 
     /// <summary>
     /// Simple string-based processing method (for backward compatibility, not used in current implementation)
@@ -264,6 +238,7 @@ public abstract class OptimizedTokenParser : ITokenParser
 
     public abstract bool TryParseTokens(ReadOnlySpan<byte> jsonData, out TokenMetrics tokens);
     public abstract bool TryParseStreamingTokens(ReadOnlySpan<byte> chunkData, out TokenMetrics tokens);
+    public abstract bool TryParseStreamingTokens(in ReadOnlySequence<byte> chunkData, out TokenMetrics tokens);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected static bool TryGetProperty(ref Utf8JsonReader reader, ReadOnlySpan<byte> propertyName,
@@ -319,6 +294,21 @@ public sealed class OpenAiTokenParser : OptimizedTokenParser
     public override bool TryParseStreamingTokens(ReadOnlySpan<byte> chunkData, out TokenMetrics tokens)
     {
         return TryParseTokens(chunkData, out tokens);
+    }
+
+    public override bool TryParseStreamingTokens(in ReadOnlySequence<byte> chunkData, out TokenMetrics tokens)
+    {
+        tokens = default;
+        try
+        {
+            // Zero-copy: use ReadOnlySequence<byte> constructor of Utf8JsonReader
+            var reader = new Utf8JsonReader(chunkData, JsonOptions);
+            return TryParseOpenAiUsage(ref reader, out tokens);
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private static bool TryParseOpenAiUsage(ref Utf8JsonReader reader, out TokenMetrics tokens)
@@ -417,6 +407,21 @@ public sealed class AnthropicTokenParser : OptimizedTokenParser
     public override bool TryParseStreamingTokens(ReadOnlySpan<byte> chunkData, out TokenMetrics tokens)
     {
         return TryParseTokens(chunkData, out tokens);
+    }
+
+    public override bool TryParseStreamingTokens(in ReadOnlySequence<byte> chunkData, out TokenMetrics tokens)
+    {
+        tokens = default;
+        try
+        {
+            // Zero-copy: use ReadOnlySequence<byte> constructor of Utf8JsonReader
+            var reader = new Utf8JsonReader(chunkData, JsonOptions);
+            return TryParseAnthropicUsage(ref reader, out tokens);
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private static bool TryParseAnthropicUsage(ref Utf8JsonReader reader, out TokenMetrics tokens)

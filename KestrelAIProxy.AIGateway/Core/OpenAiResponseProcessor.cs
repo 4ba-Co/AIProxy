@@ -31,11 +31,13 @@ public sealed class OpenAiResponseProcessor(
     {
         if (isStreaming)
         {
-            await ProcessStreamingResponse(responseStream, requestId, provider, onUsageDetected, cancellationToken);
+            await ProcessStreamingResponse(responseStream, requestId, provider, onUsageDetected,
+                cancellationToken);
         }
         else
         {
-            await ProcessNonStreamingResponse(responseStream, requestId, provider, onUsageDetected, cancellationToken);
+            await ProcessNonStreamingResponse(responseStream, requestId, provider, onUsageDetected,
+                cancellationToken);
         }
     }
 
@@ -56,7 +58,8 @@ public sealed class OpenAiResponseProcessor(
             var readTask = ReadStreamIntoPipeAsync(responseStream, pipe.Writer, cancellationToken);
 
             // Process the pipe data with the high-performance processor
-            var processTask = ProcessPipeDataAsync(pipe.Reader, parser, requestId, provider, onUsageDetected, cancellationToken);
+            var processTask = ProcessPipeDataAsync(pipe.Reader, parser, requestId, provider, onUsageDetected,
+                cancellationToken);
 
             // Wait for both tasks to complete
             await Task.WhenAll(readTask, processTask);
@@ -234,7 +237,8 @@ public sealed class OpenAiResponseProcessor(
         }
         catch (JsonException)
         {
-            logger.LogTrace("Invalid OpenAI SSE chunk: {JsonData}", jsonData.Length > 100 ? jsonData[..100] + "..." : jsonData);
+            logger.LogTrace("Invalid OpenAI SSE chunk: {JsonData}",
+                jsonData.Length > 100 ? jsonData[..100] + "..." : jsonData);
         }
     }
 
@@ -255,7 +259,8 @@ public sealed class OpenAiResponseProcessor(
             var readTask = ReadStreamIntoPipeAsync(responseStream, pipe.Writer, cancellationToken);
 
             // Collect all data from pipe into a single buffer for non-streaming JSON parsing
-            var collectTask = CollectNonStreamingDataAsync(pipe.Reader, parser, requestId, provider, onUsageDetected, cancellationToken);
+            var collectTask = CollectNonStreamingDataAsync(pipe.Reader, parser, requestId, provider, onUsageDetected,
+                cancellationToken);
 
             // Wait for both tasks to complete
             await Task.WhenAll(readTask, collectTask);
@@ -310,7 +315,8 @@ public sealed class OpenAiResponseProcessor(
             // Process the collected data
             if (totalLength > 0)
             {
-                await ProcessCollectedJsonData(responseData, totalLength, parser, requestId, provider, onUsageDetected, cancellationToken);
+                await ProcessCollectedJsonData(responseData, totalLength, parser, requestId, provider, onUsageDetected,
+                    cancellationToken);
             }
         }
         catch (Exception ex)
@@ -369,8 +375,10 @@ public sealed class OpenAiResponseProcessor(
                 };
 
                 await onUsageDetected(usageResult);
-                logger.LogInformation("OpenAI usage: {RequestId} - Input:{PromptTokens}/Output:{CompletionTokens}/Total:{TotalTokens}",
-                    requestId, response.Usage.PromptTokens, response.Usage.CompletionTokens, response.Usage.TotalTokens);
+                logger.LogInformation(
+                    "OpenAI usage: {RequestId} - Input:{PromptTokens}/Output:{CompletionTokens}/Total:{TotalTokens}",
+                    requestId, response.Usage.PromptTokens, response.Usage.CompletionTokens,
+                    response.Usage.TotalTokens);
             }
             else
             {

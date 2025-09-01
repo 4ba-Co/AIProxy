@@ -18,6 +18,11 @@ public interface ITokenParser
     /// Parse token usage from streaming chunk
     /// </summary>
     bool TryParseStreamingTokens(ReadOnlySpan<byte> chunkData, out TokenMetrics tokens);
+
+    /// <summary>
+    /// Parse token usage from streaming chunk with zero-copy ReadOnlySequence
+    /// </summary>
+    bool TryParseStreamingTokens(in ReadOnlySequence<byte> chunkData, out TokenMetrics tokens);
 }
 
 /// <summary>

@@ -51,27 +51,36 @@ public sealed class UniversalUsageMiddleware(
             return;
         }
 
-        var originalBodyStream = context.Response.Body;
+        await next(context);
 
-        await using var universalStream = new UniversalResponseStream(
-            originalBodyStream,
-            processor,
-            requestId,
-            tracker.ProviderName,
-            tracker.OnUsageDetectedAsync,
-            logger,
-            context,
-            context.RequestAborted);
-
-        context.Response.Body = universalStream;
-
-        try
+        if (context.Items.TryGetValue(CustomTransformer.ResponseCopyStreamManagerKey, out var managerObject)
+            && managerObject is ResponseCopyStreamManager streamManager)
         {
-            await next(context);
-        }
-        finally
-        {
-            context.Response.Body = originalBodyStream;
+            try
+            {
+                // RAII: Use the managed stream with automatic lifecycle management
+                if (streamManager.IsAccessible)
+                {
+                    streamManager.ResetPosition();
+                    await using var universalStreamInvoker = new UniversalResponseInvoker(
+                        requestId,
+                        tracker.ProviderName,
+                        context,
+                        streamManager.CopyStream,
+                        processor,
+                        tracker.OnUsageDetectedAsync);
+                    await universalStreamInvoker.InvokeAsync(context.RequestAborted);
+                }
+                else
+                {
+                    logger.LogWarning("Copy stream manager reports stream is not accessible - RequestId: {RequestId}", requestId);
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+                logger.LogWarning("Copy stream was disposed before usage processing - RequestId: {RequestId}", requestId);
+            }
+            // Note: No manual cleanup needed - RAII manager handles disposal via RequestAborted registration
         }
     }
 
@@ -80,6 +89,7 @@ public sealed class UniversalUsageMiddleware(
         return providerName.ToLowerInvariant() switch
         {
             "openai" => serviceProvider.GetService<OpenAiResponseProcessor>(),
+            "openrouter" => serviceProvider.GetService<OpenAiResponseProcessor>(),
             "anthropic" => serviceProvider.GetService<AnthropicResponseProcessor>(),
             _ => null
         };

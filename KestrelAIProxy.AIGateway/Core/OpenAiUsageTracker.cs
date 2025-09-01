@@ -15,7 +15,7 @@ public sealed class OpenAiUsageTracker : IUsageTracker
         "v1/embeddings"
     };
 
-    public string ProviderName => "openai";
+    public string ProviderName => "openrouter";
 
     public OpenAiUsageTracker(ILogger<OpenAiUsageTracker> logger)
     {

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Net;
 
+using KestrelAIProxy.AIGateway.Core;
 using KestrelAIProxy.AIGateway.Core.Models;
 using KestrelAIProxy.AIGateway.Extensions;
 
@@ -23,7 +24,7 @@ public sealed class AiGatewayMiddleware(
         VersionPolicy = HttpVersionPolicy.RequestVersionOrLower
     };
 
-    private readonly HttpMessageInvoker _httpClient = new(new SocketsHttpHandler()
+    private readonly HttpMessageInvoker _httpClient = new(new SocketsHttpHandler
     {
         UseProxy = false,
         AllowAutoRedirect = false,
@@ -73,6 +74,44 @@ public sealed class AiGatewayMiddleware(
 
 internal class CustomTransformer(ParseResult parseResult) : HttpTransformer
 {
+    public const string ResponseCopyStreamManagerKey = "ResponseCopyStreamManager";
+
+    public override async ValueTask<bool> TransformResponseAsync(HttpContext httpContext,
+        HttpResponseMessage? proxyResponse,
+        CancellationToken cancellationToken)
+    {
+        await base.TransformResponseAsync(httpContext, proxyResponse, cancellationToken);
+
+        if (proxyResponse?.Content == null)
+        {
+            return true;
+        }
+
+        var originalContent = proxyResponse.Content;
+        var sourceStream = await originalContent.ReadAsStreamAsync(cancellationToken);
+
+        // RAII: Resource acquisition is initialization
+        var streamManager = new ResponseCopyStreamManager();
+        var copyOnReadStream = new CopyOnReadStream(sourceStream, streamManager.CopyStream);
+        
+        proxyResponse.Content = new StreamContent(copyOnReadStream);
+        foreach (var header in originalContent.Headers)
+        {
+            proxyResponse.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
+        }
+        
+        // Store the RAII manager, not the raw stream
+        httpContext.Items[ResponseCopyStreamManagerKey] = streamManager;
+        
+        // Register cleanup when request completes
+        httpContext.RequestAborted.Register(async () => 
+        {
+            await streamManager.DisposeAsync();
+        });
+        
+        return true;
+    }
+
     public override async ValueTask TransformRequestAsync(
         HttpContext httpContext,
         HttpRequestMessage proxyRequest,
