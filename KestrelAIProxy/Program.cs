@@ -6,18 +6,17 @@ using KestrelAIProxy.Common;
 using Serilog;
 
 var builder = WebApplication.CreateSlimBuilder(args);
-
-builder.Services.UseSerilog();
+builder.AddSentry();
+builder.Services.UseSerilog(builder.Configuration["Sentry:Dsn"]!);
 builder.Services.AddAiGatewayFundamentalComponents();
 builder.Services.AddHealthChecks();
-
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.TypeInfoResolver = JsonContext.Default;
 });
 
 var app = builder.Build();
-
+app.UseSentryTracing();
 app.UseSerilogRequestLogging();
 
 app.Map("/health", ab => { ab.UseHealthChecks(null); });
