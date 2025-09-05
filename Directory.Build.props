@@ -1,8 +1,8 @@
 <Project>
-  <PropertyGroup>
-    <IsAotCompatible>true</IsAotCompatible>
-    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
-    <EnableAotAnalyzer>true</EnableAotAnalyzer>
-    <OptimizationPreference>Speed</OptimizationPreference>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TieredCompilation>true</TieredCompilation>
+        <TieredCompilationQuickJit>true</TieredCompilationQuickJit>
+        <TieredCompilationQuickJitForLoops>true</TieredCompilationQuickJitForLoops>
+        <TieredPGO>true</TieredPGO>
+    </PropertyGroup>
 </Project>

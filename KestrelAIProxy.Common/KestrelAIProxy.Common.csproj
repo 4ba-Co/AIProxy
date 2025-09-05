@@ -15,9 +15,4 @@
       <PackageReference Include="Serilog.Expressions" Version="5.1.0-dev-02301" />
     </ItemGroup>
 
-    <!-- 确保所有类型在 AOT 编译时被保留 -->
-    <ItemGroup>
-      <TrimmerRootAssembly Include="KestrelAIProxy.Common" />
-    </ItemGroup>
-
 </Project>

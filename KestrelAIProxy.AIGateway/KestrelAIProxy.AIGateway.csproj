@@ -15,9 +15,5 @@
       <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
     </ItemGroup>
 
-    <!-- 确保所有策略类型在 AOT 编译时被保留 -->
-    <ItemGroup>
-      <TrimmerRootAssembly Include="KestrelAIProxy.AIGateway" />
-    </ItemGroup>
 
 </Project>
